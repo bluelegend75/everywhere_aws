@@ -22,7 +22,7 @@ body {
 h1 {
 	color: #4A90E2;
 	text-align: center;
-	margin-bottom: 20px;
+	margin-bottom: 2px;
 }
 
 button {
@@ -58,7 +58,7 @@ input[type="text"] {
 }
 
 #map {
-	margin-top: 20px;
+	margin-top: 5px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	overflow: hidden;
@@ -74,7 +74,7 @@ input[type="text"] {
 hr {
 	border: none;
 	border-top: 1px solid #ddd;
-	margin: 20px 0;
+	margin: 0px 0;
 }
 
 .coordinate-container {
@@ -483,8 +483,7 @@ input[type="checkbox"] {
 
 
 	<hr>
-	<div id="result"></div>
-	<div id="map" style="width: 100%; height: 600px;"></div>
+	<div id="map" style="width: 100%; height: 700px;"></div>
 	<hr>
 	<hr>
 </body>
