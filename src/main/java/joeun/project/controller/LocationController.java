@@ -185,10 +185,29 @@ public class LocationController {
 		return "dc/nearBolgguri";
 	}
 
+//	@CrossOrigin(origins = "http://localhost:3000")
+//	@RequestMapping(value = "/processArray", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseBody
+//	public ResponseEntity<String> processArray(@RequestBody List<GpsPoint> coordinate) {
+//		logger.debug("coordinateString;" + coordinate);
+//		Set<BolgguriViewDto> nearBolgguri = new HashSet<>();
+//		// 각 지점에서 근처 지점 검색
+//		for (GpsPoint point : coordinate) {
+//			List<BolgguriViewDto> locations = locationService.getNearbyLocations(point.getX(), point.getY(),Double.parseDouble(point.getTitle())/100);
+//			nearBolgguri.addAll(locations);
+//		}
+//		logger.debug("nearBolgguri:" + nearBolgguri);
+//
+//		// 결과를 JSON 형태로 반환
+////		return ResponseEntity.ok(new JSONArray(nearBolgguri).toString());
+//		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+//				.body(new JSONArray(nearBolgguri).toString());
+//	}
+	
 	@CrossOrigin(origins = "http://localhost:3000")
-	@RequestMapping(value = "/processArray", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getNearBolgguri", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> processArray(@RequestBody List<GpsPoint> coordinate) {
+	public ResponseEntity<String> getNearBolgguri(@RequestBody List<GpsPoint> coordinate) {
 		logger.debug("coordinateString;" + coordinate);
 		Set<BolgguriViewDto> nearBolgguri = new HashSet<>();
 		// 각 지점에서 근처 지점 검색
@@ -202,7 +221,7 @@ public class LocationController {
 //		return ResponseEntity.ok(new JSONArray(nearBolgguri).toString());
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(new JSONArray(nearBolgguri).toString());
-	}
+	}	
 	@RequestMapping("/nearMukgguri")
 	public String nearMukgguri(Model model) {
 		List<API_cat_code> catList = locationService.selectMukgguriCat();

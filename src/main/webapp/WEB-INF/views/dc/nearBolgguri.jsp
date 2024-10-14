@@ -15,7 +15,7 @@ body {
 	background-color: #f0f2f5;
 	color: #333;
 	margin: 0;
-	padding: 20px;
+	padding: 5px;
 	box-sizing: border-box;
 }
 
@@ -113,8 +113,18 @@ input[type="checkbox"] {
 	#map {
 		height: 400px;
 	}
+	.button-container {
+    display: flex;
+    /* justify-content: space-around; */
+    flex-wrap: wrap; /* 창 크기에 맞춰 줄바꿈 허용 */	
+		justify-content: space-between; /* 여백 조절 */
+	}
 	.button-coordinate {
-		width: 32.5%;
+		/* width: 100%; */
+    flex: 1; /* 버튼의 너비가 균등하게 나눠지도록 */
+    text-align: center;
+    margin: 5px 2px; /* 버튼 사이 약간의 여백 */
+    padding: 10px;		
 	}
 	.checkbox-container {
 		display: flex;
@@ -149,7 +159,7 @@ input[type="checkbox"] {
 		$('#selOriginBtn').click(chkPosition);
 		$('#showMap').click(showMap);
 		$('#delMarker').click(delMarker);
-		$('#zoomIn').click(zoomIn);
+		$('#mukgguri').click(mukgguri);
 		$('#zoomOut').click(zoomOut);
 		$('#myplace').click(getUserLocation);
 	});
@@ -237,7 +247,7 @@ input[type="checkbox"] {
 			console.log("Invalid firstimage:", firstimage);
 		}
 	}
-	function addMarker(position, title, contentid, cat1, firstimage) {
+	function addMarker(position, title, contentid, cat1, firstimage, area) {
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({
 			position : position
@@ -252,12 +262,18 @@ input[type="checkbox"] {
 			/* var iwContent = '<a href="/" id="' + contentid + '" onmouseover="showFirstImage(this,\'' + firstimage + '\')">'
 			+ '<span class="info-cat1">'
 			+ title + '</span></a>'; */
-			iwContent = '<a href="/detail_view?bolgguri_id=' + contentid+'" id="' + contentid
+			var iwContent = '<a href="/detail_view?bolgguri_id=' + contentid+'" id="' + contentid
 					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')">'
 					+ '<span class="info-cat1">' + title + '</span></a>';
 		} else {
-			var iwContent = '<a href="/" id="' + contentid + '"><span class="info-cat2">'
-					+ title + '</span></a>';
+			/* var iwContent = '<a href="/" id="' + contentid + '"><span class="info-cat2">'
+					+ title + '</span></a>'; */
+			var iwContent = '<a href="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=' + area +' '+ title+'" id="' + contentid
+			+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')">'
+			+ '<span class="info-cat2">' + title + '</span></a>';
+  		/* var iwContent = '<a href="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=' + area +' '+ title+'" id="' + contentid
+			+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')">'
+			+ '<span class="info-cat1">' + title + '</span></a>';					 */
 		}
 
 		var customOverlay = new kakao.maps.CustomOverlay({// 커스텀 오버레이를 생성
@@ -277,10 +293,8 @@ input[type="checkbox"] {
 		 markerInfo.open(map, marker);// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시 */
 
 	}
-	function zoomIn() {
-		mlevel = map.getLevel();
-		map.setLevel(mlevel - 1);
-		displayLevel();
+	function mukgguri() {
+		myAjaxFunction2();
 	}
 	function zoomOut() {
 		mlevel = map.getLevel();
@@ -326,10 +340,10 @@ input[type="checkbox"] {
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 		var mapTypeControl = new kakao.maps.MapTypeControl();		
 	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 		
 		var zoomControl = new kakao.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
 		// 출발지와 목적지에 마커를 표시합니다
 		startMarker = new kakao.maps.Marker({
@@ -416,7 +430,7 @@ input[type="checkbox"] {
 		console.log("coordinate", coordinate);
 		// AJAX 요청
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "/processArray", true);
+		xhr.open("POST", "/getNearBolgguri", true);
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		// 응답이 돌아왔을 때 처리하는 콜백 함수
 		xhr.onreadystatechange = function() {
@@ -430,7 +444,7 @@ input[type="checkbox"] {
 					//console.log(point.x + ":" + point.y + ":" + point.title);
 
 					addMarker(new kakao.maps.LatLng(point.x, point.y), point.title,
-							point.contentid, point.cat1, point.firstimage);
+							point.contentid, point.cat1, point.firstimage, point.area);
 
 					/* markerInfo = new kakao.maps.InfoWindow({// 인포윈도우를 생성
 						position : new kakao.maps.LatLng(point.x, point.y),
@@ -458,6 +472,58 @@ input[type="checkbox"] {
 		// 서버로 배열을 JSON 형태로 전송
 		xhr.send(JSON.stringify(coordinate));
 	}
+	function myAjaxFunction2() {
+		coordinate = [];// 매번 배열을 초기화
+		coordinate.push({
+			title : $("#radius").val(), //radius
+			x : $("#startXlat").val(),
+			y : $("#startYlng").val()
+		});
+		console.log("coordinate", coordinate);
+		// AJAX 요청
+		const xhr = new XMLHttpRequest();
+		xhr.open("POST", "/getNearMukgguri", true);
+		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		// 응답이 돌아왔을 때 처리하는 콜백 함수
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				// 서버에서 받은 JSON 배열을 자바스크립트 변수로 저장
+				const nearBolgguri = JSON.parse(xhr.responseText);
+				//console.log("Received nearBolgguri:", nearBolgguri);
+
+				// 주변 꺼리 좌표 가져와 화면에 표시
+				nearBolgguri.forEach(function(point) {
+					//console.log(point.x + ":" + point.y + ":" + point.title);
+
+					addMarker(new kakao.maps.LatLng(point.x, point.y), point.title,
+							point.contentid, point.cat1, point.firstimage, point.area);
+
+					/* markerInfo = new kakao.maps.InfoWindow({// 인포윈도우를 생성
+						position : new kakao.maps.LatLng(point.x, point.y),
+						content : point.title
+					});
+					markerInfo.open(map, marker); */// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시
+				});
+				var circle = new kakao.maps.Circle({
+					map : map,
+					center : new kakao.maps.LatLng($("#startXlat").val(), $("#startYlng")
+							.val()),
+					radius : $("#radius").val() * 1100,
+					strokeWeight : 1,
+					strokeColor : '#00a0e9',
+					strokeOpacity : 1,
+					strokeStyle : 'solid', // 이와 같이 문자열로 작성한다.
+					fillColor : '#00a0e9', // 채우기 색깔
+					fillOpacity : 0.2
+				// 채우기 불투명도
+				});
+				circles.push(circle);
+				circle.setMap(map);
+			}
+		};
+		// 서버로 배열을 JSON 형태로 전송
+		xhr.send(JSON.stringify(coordinate));	
+	}
 </script>
 </head>
 <body>
@@ -471,21 +537,22 @@ input[type="checkbox"] {
 			경도(lng) <input type="text" id="startYlng" value="126.67263577746134">
 		</div>
 	</div>
-	<button id="showMap">주변 볼꺼리 찾기</button>
-	<button id="myplace">내 위치 볼꺼리</button>
-	<!-- 	<div class="button-coordinate"> -->
-	<button id="delMarker" class="button-coordinate">마커 지우기</button>
-	<button id="zoomOut" class="button-coordinate">축소</button>
-	<button id="zoomIn" class="button-coordinate">확대</button>
-	<br>
-	<!-- </div> -->
-	<div class="checkbox-container">
+<!-- 	<button id="showMap">주변 재검색</button>
+	<button id="myplace">내 위치 검색</button> -->
+	<div class="button-container">
+		<button id="delMarker" class="button-coordinate">마커 지우기</button>
+		<button id="showMap" class="button-coordinate">주변 재검색</button>
+		<button id="myplace" class="button-coordinate">내 위치 검색</button>
+		<button id="mukgguri" class="button-coordinate">먹꺼리 검색</button>	
+		<br>
+	</div>
+<%-- 	<div class="checkbox-container">
 		<c:forEach items="${catList}" var="item">
 			<div class="checkbox-item">
 				<input type="checkbox" name="item" value="${item.code}" checked> ${item.name}<br>
 			</div>
 		</c:forEach>
-	</div>
+	</div> --%>
 
 
 	<hr>

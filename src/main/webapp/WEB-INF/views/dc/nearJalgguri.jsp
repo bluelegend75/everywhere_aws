@@ -320,10 +320,10 @@ input[type="checkbox"] {
 		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 		var mapTypeControl = new kakao.maps.MapTypeControl();		
 	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 		
 		var zoomControl = new kakao.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
 		// 출발지와 목적지에 마커를 표시합니다
 		startMarker = new kakao.maps.Marker({
@@ -465,8 +465,8 @@ input[type="checkbox"] {
 			경도(lng) <input type="text" id="startYlng" value="126.67263577746134">
 		</div>
 	</div>
-	<button id="showMap">주변 잘꺼리 찾기</button>
-	<button id="myplace">내 위치 잘꺼리</button>
+	<button id="showMap">주변 재검색</button>
+	<button id="myplace">내 위치 검색</button>
 	<!-- 	<div class="button-coordinate"> -->
 	<button id="delMarker" class="button-coordinate">마커 지우기</button>
 	<button id="zoomOut" class="button-coordinate">축소</button>
