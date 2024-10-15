@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>경로 볼꺼리</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -54,14 +55,14 @@ body {
 	background-color: #f8f9fa;
 	color: #333;
 	margin: 0;
-	padding: 20px;
+	padding: 5px;
 	box-sizing: border-box;
 }
 
 h1 {
 	color: #007bff;
 	text-align: center;
-	margin-bottom: 30px;
+	margin-bottom: 2px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 }
@@ -97,17 +98,18 @@ input[type="text"] {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 10px;
+	gap: 5px;
 	margin-bottom: 2px;
 }
 
 #map {
-	margin-top: 20px;
+	margin-top: 5px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 #result, #arrivedTime {
 	margin-top: 2px;
@@ -118,13 +120,13 @@ input[type="text"] {
 hr {
 	border: none;
 	border-top: 1px solid #ddd;
-	margin: 20px 0;
+	margin: 0px 0;
 }
 
 table.icTable {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 20px;
+	margin-top: 2px;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -140,10 +142,16 @@ table.icTable th {
 	color: white;
 	font-weight: 700;
 }
+#oneline {
+	display: inline;
+}
 
 table.icTable tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
+/* #delMarker {
+	width: 109px; 
+} */
 
 @media ( max-width : 768px) {
 	input[type="text"] {
@@ -164,8 +172,14 @@ table.icTable tr:nth-child(even) {
 		width: 35%;
 		margin-left: auto; /* 버튼을 컨테이너의 오른쪽 끝으로 밀어냄 */
 	}
-	.button-coordinate {
+/* 	.button-coordinate {
 		width: 32.5%;
+	} */
+	#delMarker {
+		width: 90px; 
+	} 
+	button {
+		padding: 5px 5px;
 	}
 }
 </style>
@@ -201,7 +215,7 @@ table.icTable tr:nth-child(even) {
 	function showFirstImage(element, firstimage) {
 		if (firstimage && firstimage != 'undefined') {
 
-			console.log("firstimage", firstimage);
+			//console.log("firstimage", firstimage);
 			// 이미 존재하는 이미지가 있는지 확인
 			var existingImg = element.parentNode.querySelector('img');
 			if (existingImg) {
@@ -284,7 +298,7 @@ table.icTable tr:nth-child(even) {
 		 markerInfo.close(); */
 	}
 	function setMarkers(map) {
-		console.log("markers[]", delMarker);
+		//console.log("markers[]", delMarker);
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(map);
 		}
@@ -335,21 +349,21 @@ table.icTable tr:nth-child(even) {
 	}
 	function myAjaxFunction() {
 
-		console.log("coordinate", coordinate);
+		//console.log("coordinate", coordinate);
 		// AJAX 요청
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "/processArray", true);
+		xhr.open("POST", "/getNearBolgguri", true);
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		// 응답이 돌아왔을 때 처리하는 콜백 함수
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				// 서버에서 받은 JSON 배열을 자바스크립트 변수로 저장
 				const nearBolgguri = JSON.parse(xhr.responseText);
-				console.log("Received nearBolgguri:", nearBolgguri);
+				//console.log("Received nearBolgguri:", nearBolgguri);
 
 				// 주변 꺼리 좌표 가져와 화면에 표시
 				nearBolgguri.forEach(function(point) {
-					console.log(point.x + ":" + point.y + ":" + point.title);
+					//console.log(point.x + ":" + point.y + ":" + point.title);
 
 					addMarker(new kakao.maps.LatLng(point.x, point.y), point.title,
 							point.contentid, point.firstimage);
@@ -367,6 +381,8 @@ table.icTable tr:nth-child(even) {
 	}
 
 	function checkStart() {
+		delMarker();
+		alert("지도상의 출발지를 찍어주세요");
 		if (startMarker !== null) {
 			startMarker.setMap(null); // 이전 마커 제거
 		}
@@ -388,6 +404,8 @@ table.icTable tr:nth-child(even) {
 	}
 
 	function checkEnd() {
+		delMarker();
+		alert("지도상의 목적지를 찍어주세요");
 		if (endMarker !== null) {
 			endMarker.setMap(null); // 이전 마커 제거
 		}
@@ -422,10 +440,10 @@ table.icTable tr:nth-child(even) {
 		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 		var mapTypeControl = new kakao.maps.MapTypeControl();		
 	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 	
 		var zoomControl = new kakao.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
 		// 출발지와 목적지 좌표를 설정합니다
 		//var origin = "127.1054328,37.3595963"; // 출발지 좌표
@@ -449,24 +467,24 @@ table.icTable tr:nth-child(even) {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				response = JSON.parse(xhr.responseText);
-				console.log("response", response);
+				//console.log("response", response);
 				routes = response.routes[0].sections[0].roads;
-				console.log("routes", routes);
+				//console.log("routes", routes);
 
 				//IC 정보 가져오기
 				var icInfo = response.routes[0].sections[0].guides;
-				console.log("icInfo:", icInfo);
+				//console.log("icInfo:", icInfo);
 				var tableBody = $('#icTable tbody');
 				tableBody.empty();
-				console.log("icInfo.lenght", icInfo.length);
+				//console.log("icInfo.lenght", icInfo.length);
 				coordinate = [];// ajax 요청할 ic 좌표 배열를  초기화
 				var duration_sum = 0;//소요시간 합
 				for (var i = 0, j = 1; i < icInfo.length; i++) {
 					var ic = icInfo[i];
-					console.log("ic" + ic);
+					//console.log("ic" + ic);
 					duration_sum += ic.duration;
 					if (ic.name.includes("IC")) {
-						console.log(ic.name, ic.x, ic.y);
+						//console.log(ic.name, ic.x, ic.y);
 
 						coordinate.push({
 							title : $('#radius').val(), //radius
@@ -505,7 +523,7 @@ table.icTable tr:nth-child(even) {
 				}
 				var duration_arrived = duration_sum;
 				$('#arrivedTime').text(
-						'소요시간: ' + secondsToHMS(duration_arrived) + '(도착시간:'
+						'소요시간: ' + secondsToHMS(duration_arrived) + '(도착:'
 								+ addSecondsToCurrentTime(duration_arrived) + ')');
 				var linePath = [];
 				//debugger;
@@ -606,11 +624,11 @@ table.icTable tr:nth-child(even) {
 		<button id="showMap" title="선택된 출발지, 목적지 에 대한 경로와 IC주변 볼꺼리를 보여줍니다.">경로 보기</button>
 	</div>
 
-	<div id='arrivedTime'></div>
-
-	<button id="delMarker" class="button-coordinate">마커 지우기</button>
-	<button id="zoomOut" class="button-coordinate">축소</button>
-	<button id="zoomIn" class="button-coordinate">확대</button>
+	<div id="oneline">
+	<button id="delMarker" class="button-coordinate">마커 지우기</button><span id='arrivedTime'></span>
+	</div>
+<!-- 	<button id="zoomOut" class="button-coordinate">축소</button>
+	<button id="zoomIn" class="button-coordinate">확대</button> -->
 
 	<hr>
 	<div id="map" style="width: 100%; height: 600px;"></div>

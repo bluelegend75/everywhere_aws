@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 잘꺼리</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
 <link rel="stylesheet"
@@ -15,7 +16,7 @@ body {
 	background-color: #f0f2f5;
 	color: #333;
 	margin: 0;
-	padding: 20px;
+	padding: 5px;
 	box-sizing: border-box;
 }
 
@@ -80,7 +81,7 @@ hr {
 .coordinate-container {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	align-items: center;
 	gap: 2px; /* 요소 간의 간격을 조절 */
 	margin-bottom: 2px; /* 다른 요소들과의 간격을 조절 */
@@ -93,8 +94,7 @@ hr {
 }
 
 #selOriginBtn {
-	width: 200px; /* 버튼 너비 설정 */
-	/*height: 90px;*/ /* 버튼 높이 설정 */
+	width: 200px; 
 }
 
 .checkbox-container {
@@ -113,8 +113,18 @@ input[type="checkbox"] {
 	#map {
 		height: 400px;
 	}
+	.button-container {
+    display: flex;
+    /* justify-content: space-around; */
+    flex-wrap: wrap; /* 창 크기에 맞춰 줄바꿈 허용 */	
+		justify-content: space-between; /* 여백 조절 */
+	}
 	.button-coordinate {
-		width: 32.5%;
+		/* width: 100%; */
+    flex: 1; /* 버튼의 너비가 균등하게 나눠지도록 */
+    text-align: center;
+    margin: 2px 2px; /* 버튼 사이 약간의 여백 */
+    padding: 10px;		
 	}
 	.checkbox-container {
 		display: flex;
@@ -301,7 +311,12 @@ input[type="checkbox"] {
 	}
 
 	function showMap() {
-		map = null;
+		if(map !=null){
+			if(map.getLevel()!=null){
+				mlevel = map.getLevel();
+			}
+			map = null;
+		}	
 		// 출발지와 목적지 좌표를 설정합니다
 		//var origin = "127.1054328,37.3595963"; // 출발지 좌표
 		origin_lat = $("#startXlat").val();
@@ -464,13 +479,14 @@ input[type="checkbox"] {
 			위도(lat) <input type="text" id="startXlat" value="37.596690572396454"> 
 			경도(lng) <input type="text" id="startYlng" value="126.67263577746134">
 		</div>
+		<button id="showMap" class="button-coordinate">주변 검색</button>
 	</div>
-	<button id="showMap">주변 재검색</button>
+
 	<button id="myplace">내 위치 검색</button>
 	<!-- 	<div class="button-coordinate"> -->
 	<button id="delMarker" class="button-coordinate">마커 지우기</button>
-	<button id="zoomOut" class="button-coordinate">축소</button>
-	<button id="zoomIn" class="button-coordinate">확대</button>
+	<!-- <button id="zoomOut" class="button-coordinate">축소</button>
+	<button id="zoomIn" class="button-coordinate">확대</button> -->
 	<br>
 	<!-- </div> -->
 	<div class="checkbox-container">

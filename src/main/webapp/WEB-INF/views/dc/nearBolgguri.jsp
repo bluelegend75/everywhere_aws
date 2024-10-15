@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 볼꺼리</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
 <link rel="stylesheet"
@@ -80,7 +81,7 @@ hr {
 .coordinate-container {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	align-items: center;
 	gap: 2px; /* 요소 간의 간격을 조절 */
 	margin-bottom: 2px; /* 다른 요소들과의 간격을 조절 */
@@ -93,8 +94,7 @@ hr {
 }
 
 #selOriginBtn {
-	width: 200px; /* 버튼 너비 설정 */
-	/*height: 90px;*/ /* 버튼 높이 설정 */
+	width: 200px; 
 }
 
 .checkbox-container {
@@ -123,7 +123,7 @@ input[type="checkbox"] {
 		/* width: 100%; */
     flex: 1; /* 버튼의 너비가 균등하게 나눠지도록 */
     text-align: center;
-    margin: 5px 2px; /* 버튼 사이 약간의 여백 */
+    margin: 2px 2px; /* 버튼 사이 약간의 여백 */
     padding: 10px;		
 	}
 	.checkbox-container {
@@ -219,7 +219,7 @@ input[type="checkbox"] {
 	function showFirstImage(element, firstimage) {
 		if (firstimage && firstimage != 'undefined') {
 
-			console.log("firstimage", firstimage);
+			//console.log("firstimage", firstimage);
 			// 이미 존재하는 이미지가 있는지 확인
 			var existingImg = element.parentNode.querySelector('img');
 			if (existingImg) {
@@ -296,11 +296,15 @@ input[type="checkbox"] {
 	function mukgguri() {
 		myAjaxFunction2();
 	}
+	function zoomIn() {
+		mlevel = map.getLevel();
+		map.setLevel(mlevel - 1);
+		displayLevel();
+	}
 	function zoomOut() {
 		mlevel = map.getLevel();
 		map.setLevel(mlevel + 1);
 		displayLevel();
-
 	}
 	function delMarker() {
 		setMarkers(null);
@@ -320,15 +324,21 @@ input[type="checkbox"] {
 		}
 	}
 
-	function showMap() {
-		map = null;
+	function showMap() {	
+		if(map !=null){
+			if(map.getLevel()!=null){
+				mlevel = map.getLevel();
+			}
+			map = null;
+		}	
+		
 		// 출발지와 목적지 좌표를 설정합니다
 		//var origin = "127.1054328,37.3595963"; // 출발지 좌표
 		origin_lat = $("#startXlat").val();
 		origin_lng = $("#startYlng").val();
 		var origin = origin_lng + "," + origin_lat; // 출발지 좌표
 		console.log("showmap좌표 :" + origin);
-
+		
 		// 지도를 생성합니다
 		var mapContainer = document.getElementById('map'), mapOption = {
 			center : new kakao.maps.LatLng(origin_lat, origin_lng), // 지도의 중심 좌표 (서울 시청 기준)
@@ -336,6 +346,7 @@ input[type="checkbox"] {
 		};
 
 		map = new kakao.maps.Map(mapContainer, mapOption);// 지도 생성		
+		//alert("map.getLevel()"+map.getLevel());
 		
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 		var mapTypeControl = new kakao.maps.MapTypeControl();		
@@ -536,16 +547,18 @@ input[type="checkbox"] {
 			위도(lat) <input type="text" id="startXlat" value="37.596690572396454"> 
 			경도(lng) <input type="text" id="startYlng" value="126.67263577746134">
 		</div>
+		<button id="showMap" class="button-coordinate">주변 검색</button>
 	</div>
 <!-- 	<button id="showMap">주변 재검색</button>
 	<button id="myplace">내 위치 검색</button> -->
 	<div class="button-container">
-		<button id="delMarker" class="button-coordinate">마커 지우기</button>
-		<button id="showMap" class="button-coordinate">주변 재검색</button>
 		<button id="myplace" class="button-coordinate">내 위치 검색</button>
+		<button id="delMarker" class="button-coordinate">마커 지우기</button>
+		<!-- <button id="showMap" class="button-coordinate">주변 검색</button> -->		
 		<button id="mukgguri" class="button-coordinate">먹꺼리 검색</button>	
 		<br>
 	</div>
+
 <%-- 	<div class="checkbox-container">
 		<c:forEach items="${catList}" var="item">
 			<div class="checkbox-item">
@@ -556,7 +569,7 @@ input[type="checkbox"] {
 
 
 	<hr>
-	<div id="map" style="width: 100%; height: 720px;"></div>
+	<div id="map" style="width: 100%; height: 700px;"></div>
 	<hr>
 	<hr>
 </body>
