@@ -15,6 +15,7 @@ import joeun.project.dto.API_bolgguriDto;
 import joeun.project.dto.API_cat_code;
 import joeun.project.dto.API_commonDto;
 import joeun.project.dto.API_contentImageDto;
+import joeun.project.dto.API_disableDto;
 import joeun.project.dto.API_intro14Dto;
 import joeun.project.dto.API_introduceDto;
 import joeun.project.dto.API_jalgguriDto;
@@ -163,5 +164,19 @@ public class API_RestController {
 		}
 		
 		return "Data insert successfully!";
+	}
+	
+	@RequestMapping(value = "/api_disable", method = RequestMethod.GET)
+	public String api_disable(Model model) {
+
+		return "/dc/api_disable";//이동할 페이지 : +.jsp
+	}
+	
+	@RequestMapping("/ajax/insertAPI_disable")
+	@ResponseBody
+	public String insertAPI_disable(@RequestBody List<API_disableDto> data) {
+		System.out.println("Conroller API_contentImageDto: "+data);		
+		restService.insertAPI_disable(data);
+		return "Data saved successfully";
 	}
 }

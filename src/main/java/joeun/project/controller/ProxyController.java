@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import joeun.project.dto.API_commonDto;
 import joeun.project.dto.API_contentIdType;
 import joeun.project.dto.API_contentImageDto;
+import joeun.project.dto.API_disableDto;
 import joeun.project.dto.API_intro14Dto;
 import joeun.project.dto.API_introduceDto;
 import joeun.project.service.RestServiceI;
@@ -597,5 +598,96 @@ public class ProxyController {
 //		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
 //				.body(new JSONArray(nearBolgguri).toString());
 	}
+	
+	@GetMapping("/API_disable_proxy")
+	public ResponseEntity<String> API_disable_proxy(Integer mode, @RequestParam(required = false) String url,
+			@RequestParam(required = false) String serviceKey, @RequestParam(required = false) String numOfRows,
+			@RequestParam(required = false) String pageNo, @RequestParam(required = false) String areaCode,
+			@RequestParam(required = false) Integer contentId) {
+		System.out.println("Mode: " + mode);
 
+		String lastBody = null;
+
+		if (mode == 1) {
+			String myUrl = url + "?" + "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows + "&pageNo=" + pageNo
+					+ "&MobileOS=ETC&MobileApp=AppTest&contentId=" + contentId+"&_type=json";
+			System.out.println("myUrl: " + myUrl);
+
+			// 공공API 호출해서 값 받아오기
+			HttpEntity<String> response = restTemplate.exchange(myUrl, HttpMethod.GET, null, String.class);
+
+			System.out.println("response.getBody():" + response.getBody()); // 실제 응답 메세지 내용 확인.
+			// 받아온 값 한글로 인코딩하기
+			String body = new String(response.getBody().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+			System.out.println("response.body: " + body);
+			// ajax에 보낼 헤더에 인코딩 설정 해주기
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+			// AJAX로 리턴해주기
+			return new ResponseEntity<>(body, headers, HttpStatus.OK);
+
+		} else if (mode == 2) {// 자동저장
+			System.out.println("자동저장 모드입니다.");
+			// contentId 값 가져오기:
+			List<Integer> contentIds = new ArrayList<Integer>();
+			contentIds = restService.selectDisableContentId();
+			System.out.println("contentIds.size():"+contentIds.size());
+			for (int i = 0; i < 500; i++) {
+				String myUrl = url + "?" + "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows + "&pageNo=" + pageNo						
+						+ "&MobileOS=ETC&MobileApp=AppTest&contentId=" + contentIds.get(i)+"&_type=json";
+				System.out.println("myUrl: " + myUrl);
+
+				// 공공API 호출해서 값 받아오기
+				HttpEntity<String> response = restTemplate.exchange(myUrl, HttpMethod.GET, null, String.class);
+				System.out.println("response.getBody():" + response.getBody()); // 실제 응답 메세지 내용 확인.
+
+				// 받아온 값 한글로 인코딩하기
+				String body = new String(response.getBody().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+				System.out.println("response.body: " + body);
+				lastBody = body;
+
+				ObjectMapper objectMapper = new ObjectMapper();// ObjectMapper를 이용하여 JSON 데이타를 java dto로 변환
+//				String jsonString = "{ \"response\": { \"header\": { \"resultCode\": \"0000\", \"resultMsg\": \"OK\" }, \"body\": { \"items\": { \"item\": [{ \"contentid\": \"2769697\", \"contenttypeid\": \"12\", \"heritage1\": \"0\", \"heritage2\": \"0\", \"heritage3\": \"0\", \"infocenter\": \"043-543-6282\", \"opendate\": \"\", \"restdate\": \"화요일\", \"expguide\": \"숲 속 체험 프로그램 / 목재 문화 체험 프로그램\", \"expagerange\": \"\", \"accomcount\": \"\", \"useseason\": \"\", \"usetime\": \"- 일일개장 09:00~18:00\\u003Cbr\\u003E\\n- 숙박시설 15:00~익일11:00\", \"parking\": \"있음\", \"chkbabycarriage\": \"없음\", \"chkpet\": \"없음\", \"chkcreditcard\": \"없음\" }] }, \"numOfRows\": 1, \"pageNo\": 1, \"totalCount\": 1 } } }";
+				String jsonString = body;
+				try {
+					// JSON 데이터를 JsonNode로 파싱
+					JsonNode root = objectMapper.readTree(jsonString);
+					int JSONnumOfRows = root.path("response").path("body").path("numOfRows").asInt();
+					System.out.println("JSONnumOfRows: " + JSONnumOfRows);
+					if (JSONnumOfRows == 0) {
+						restService.insertAPI_disableContentIdNull(contentIds.get(i));
+						continue;
+					}
+
+					// 'item' 노드를 찾아 자바 객체로 변환
+					JsonNode itemsNode = root.path("response").path("body").path("items").path("item");
+					List<API_disableDto> dtos = new ArrayList<API_disableDto>();
+
+					if (itemsNode.isArray()) {
+						for (JsonNode itemNode : itemsNode) {
+							API_disableDto dto = objectMapper.treeToValue(itemNode, API_disableDto.class);
+							dtos.add(dto);
+						}
+					}
+					restService.insertAPI_disable(dtos);
+
+				} catch (JsonProcessingException e) {
+					System.out.println("JsonProcessingException~~~~~~~~~~~~~~~~~~~");
+					e.printStackTrace();
+				} catch (IOException e) {
+					System.out.println("API_introduceDto dto 에러~~~~~~~~~~~~~~~~~~~");
+					e.printStackTrace();
+				} catch (NullPointerException e) {
+					System.out.println("API_introduceDto NullPointerException 에러~~~~~~~~~~~~~~~~~~~");
+					e.printStackTrace();
+				}
+			}
+		} // else if 끝
+
+		// ajax에 보낼 헤더에 인코딩 설정 해주기
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		// AJAX로 리턴해주기
+		return new ResponseEntity<>(lastBody, headers, HttpStatus.OK);
+	}
 }

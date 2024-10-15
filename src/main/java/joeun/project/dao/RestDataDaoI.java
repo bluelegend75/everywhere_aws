@@ -7,6 +7,7 @@ import joeun.project.dto.API_cat_code;
 import joeun.project.dto.API_commonDto;
 import joeun.project.dto.API_contentIdType;
 import joeun.project.dto.API_contentImageDto;
+import joeun.project.dto.API_disableDto;
 import joeun.project.dto.API_intro14Dto;
 import joeun.project.dto.API_introduceDto;
 import joeun.project.dto.API_jalgguriDto;
@@ -52,6 +53,12 @@ public interface RestDataDaoI {
 	public void insertAPI_Intro14_null(String contentid);
 
 	public void insertAPI_Intro14(API_intro14Dto dto);
+
+	public void insertAPI_disable(API_disableDto api_disableDto);
+
+	public List<Integer> selectDisableContentId();
+
+	public void insertAPI_disableContentIdNull(Integer contentId);
 
 	
 

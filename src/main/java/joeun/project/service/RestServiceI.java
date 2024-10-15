@@ -7,6 +7,7 @@ import joeun.project.dto.API_cat_code;
 import joeun.project.dto.API_commonDto;
 import joeun.project.dto.API_contentIdType;
 import joeun.project.dto.API_contentImageDto;
+import joeun.project.dto.API_disableDto;
 import joeun.project.dto.API_intro14Dto;
 import joeun.project.dto.API_introduceDto;
 import joeun.project.dto.API_jalgguriDto;
@@ -52,5 +53,11 @@ public interface RestServiceI {
 	void insertAPI_Intro14_null(String contentId);
 
 	void insertAPI_Intro14(API_intro14Dto dto);
+
+	void insertAPI_disable(List<API_disableDto> data);
+
+	List<Integer> selectDisableContentId();
+
+	void insertAPI_disableContentIdNull(Integer integer);
 
 }

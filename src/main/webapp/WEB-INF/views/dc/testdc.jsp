@@ -31,7 +31,8 @@
 	<a href="/intro12">컨텐츠 소개정보12(content id별) </a><br>
 	<a href="/intro14">컨텐츠 소개정보14(content id별) </a><br>
 	<a href="/contentImage">컨텐츠 이미지(content id별 이미지 경로) </a><br>
-		<a href="/api_common">공통정보(content id별) </a><br>
+	<a href="/api_common">공통정보(content id별) </a><br>
+	<a href="/api_disable">무장애정보(content id별) </a><br>
 	
 	<br>
 </body>

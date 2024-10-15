@@ -12,6 +12,7 @@ import joeun.project.dto.API_cat_code;
 import joeun.project.dto.API_commonDto;
 import joeun.project.dto.API_contentIdType;
 import joeun.project.dto.API_contentImageDto;
+import joeun.project.dto.API_disableDto;
 import joeun.project.dto.API_intro14Dto;
 import joeun.project.dto.API_introduceDto;
 import joeun.project.dto.API_jalgguriDto;
@@ -172,6 +173,30 @@ public class RestService implements RestServiceI {
 		RestDataDaoI dao = sqlSession.getMapper(RestDataDaoI.class);
 		System.out.println("data: " + dto);
 		dao.insertAPI_Intro14(dto);
+		
+	}
+
+	@Override
+	public void insertAPI_disable(List<API_disableDto> data) {
+		RestDataDaoI dao = sqlSession.getMapper(RestDataDaoI.class);
+		System.out.println("data: " + data);
+		for(int i=0;i<data.size();i++) {
+			System.out.println(data.get(i));
+			dao.insertAPI_disable(data.get(i));	
+		}
+		
+	}
+
+	@Override
+	public List<Integer> selectDisableContentId() {
+		RestDataDaoI dao = sqlSession.getMapper(RestDataDaoI.class);
+		return dao.selectDisableContentId();
+	}
+
+	@Override
+	public void insertAPI_disableContentIdNull(Integer contentId) {
+		RestDataDaoI dao = sqlSession.getMapper(RestDataDaoI.class);
+		dao.insertAPI_disableContentIdNull(contentId);
 		
 	}
 }

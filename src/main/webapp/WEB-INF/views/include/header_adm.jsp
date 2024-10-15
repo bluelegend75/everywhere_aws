@@ -262,7 +262,7 @@
 												<li><a href="/intro14">컨텐츠 소개정보(문화시설) </a></li>
 												<li><a href="/contentImage">컨텐츠 이미지(content id별) </a></li>
 												<li><a href="/api_common">공통정보(content id별) </a></li>
-												<li><a href="/nearMukgguri">주변 먹꺼리 찾기</a></li>
+												<li><a href="/api_disable">무장애정보(content id별)</a></li>
                     </ul>
                 </li>
             </ul>

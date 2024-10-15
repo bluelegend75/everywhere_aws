@@ -123,6 +123,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 										,DISCOUNTINFO,INFOCENTERCULTURE,PARKINGCULTURE,PARKINGFEE,RESTDATECULTURE,USEFEE,USETIMECULTURE,SCALE,SPENDTIME)
 		values(#{contentid},#{contenttypeid},#{accomcountculture},#{chkbabycarriageculture},#{chkcreditcardculture},#{chkpetculture},#{discountinfo}
 						,#{infocenterculture},#{parkingculture},#{parkingfee},#{restdateculture},#{usefee},#{usetimeculture},#{scale},#{spendtime})
+	</insert>	
+	<insert id="insertAPI_disable">
+		insert into API_DISABLE(CONTENTID,PARKING,ROUTE,PUBLICTRANSPORT,TICKETOFFICE,PROMOTION,WHEELCHAIR,EXIT
+					,ELEVATOR,RESTROOM,AUDITORIUM,ROOM,HANDICAPETC,BRAILEBLOCK,HELPDOG,GUIDEHUMAN,AUDIOGUIDE,BIGPRINT
+					,BRAILEPROMOTION,GUIDESYSTEM,BLINDHANDICAPETC,SIGNGUIDE,VIDEOGUIDE,HEARINGROOM,HEARINGHANDICAPETC
+					,STROLLER,LACTATIONROOM,BABYSPARECHAIR,INFANTSFAMILYETC)
+		values(#{contentid},#{parking},#{route},#{publictransport},#{ticketoffice},#{promotion},#{wheelchair}
+				,#{exit},#{elevator},#{restroom},#{auditorium},#{room},#{handicapetc},#{braileblock},#{helpdog}
+			,#{guidehuman},#{audioguide},#{bigprint},#{brailepromotion},#{guidesystem},#{blindhandicapetc},#{signguide}
+			,#{videoguide},#{hearingroom},#{hearinghandicapetc},#{stroller},#{lactationroom},#{babysparechair},#{infantsfamilyetc})
+	</insert>	
+	<select id="selectDisableContentId" resultType="Integer">
+		select contentid from bolgguri
+		WHERE ContentTypeId ='12'
+		minus
+		(select distinct contentid from
+		API_DISABLE
+		union
+		select distinct contentid from api_disable_content_id_null)
+	</select>
+	<insert id="insertAPI_disableContentIdNull">
+		insert into api_disable_content_id_null(CONTENTID)
+		values(#{contentid } )
 	</insert>
-
 </mapper>
