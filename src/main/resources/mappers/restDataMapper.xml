@@ -136,7 +136,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>	
 	<select id="selectDisableContentId" resultType="Integer">
 		select contentid from bolgguri
-		WHERE ContentTypeId ='12'
 		minus
 		(select distinct contentid from
 		API_DISABLE

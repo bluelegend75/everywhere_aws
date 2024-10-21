@@ -135,6 +135,13 @@ ul, li {
 	right: 5%;
 	color: #007bff;
 }
+.search_img{
+	background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
 
 /*이미지 슬라이드 존*/
 .content_zone3 {
@@ -809,9 +816,9 @@ $(document).ready(function() {
 			<div class="search_container">
 				<form action="/mw/bolgguriMain" method="GET" class="search_box">
 					<input type="text" name="keyword" placeholder="키워드를 입력해주세요.">
-					<div class="search_img">
-						<span class="material-symbols-outlined"> search </span>
-					</div>
+					<button class="search_img">
+						<span class="material-symbols-outlined" > search </span>
+					</button>
 				</form>
 			</div>
 		</div>

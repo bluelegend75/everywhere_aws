@@ -606,7 +606,7 @@ table.icTable tr:nth-child(even) {
 </script>
 </head>
 <body>
-	<a href="/"> <span class="material-symbols-outlined">home</span></a>
+	<!-- <a href="/"> <span class="material-symbols-outlined">home</span></a> -->
 	<h1>경로 볼꺼리 찾기</h1>
 
 	<div class="coordinate-container">

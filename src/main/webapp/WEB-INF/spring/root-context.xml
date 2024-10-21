@@ -5,8 +5,8 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dataSource">
 		<property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
-		<!-- <property value="jdbc:oracle:thin:@18.234.55.241:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" /> --> 
-		<property value="jdbc:oracle:thin:@192.168.30.6:1521:xe" name="url" />
+		<!-- <property value="jdbc:oracle:thin:@18.234.55.241:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" />  -->
+    <property value="jdbc:oracle:thin:@192.168.30.6:1521:xe" name="url" />
 		<property value="project" name="username" />
 		<property value="123456" name="password" />
 	</bean>
@@ -25,6 +25,7 @@
 	    <property name="port" value="465"/>
 	    <property name="username" value="qkdwnstlr98@naver.com"/>
 	    <property name="password" value="qkdwnstlr123!"/>
+	    <property name="defaultEncoding" value="utf-8" />
 	    <!-- 보안연결 SSL과 관련된 설정 -->
 	    <property name="javaMailProperties">
 		    <props>

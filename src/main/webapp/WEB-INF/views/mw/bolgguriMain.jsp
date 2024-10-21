@@ -1763,6 +1763,15 @@ input[type="checkbox"] {
      	$('.list_scroll_right').click(function() {
         	$('.list_search_area_container').animate({ scrollLeft: '+=130px' }, 100); // 오른쪽으로 100px 스크롤
      	});
+     	
+     	// 볼거리 지도검색 좌우 스크롤
+	    $('.map_scroll_left').click(function() {
+	        $('.map_search_area_container').animate({ scrollLeft: '-=130px' }, 100); // 왼쪽으로 100px 스크롤
+	    });
+
+     	$('.map_scroll_right').click(function() {
+        	$('.map_search_area_container').animate({ scrollLeft: '+=130px' }, 100); // 오른쪽으로 100px 스크롤
+     	});
 	   
      	
      	

@@ -93,9 +93,9 @@ hr {
 	text-align: right;
 }
 
-#selOriginBtn {
+/* #selOriginBtn {
 	width: 200px; 
-}
+} */
 
 .checkbox-container {
 	display: flex;
@@ -107,7 +107,7 @@ input[type="checkbox"] {
 
 @media ( max-width : 600px) {
 	button, input[type="text"] {
-		width: 49%;
+		width: 30%;
 		margin: 2px 0;
 	}
 	#map {
@@ -195,7 +195,7 @@ input[type="checkbox"] {
 				switch (error.code) {
 				case error.PERMISSION_DENIED:
 					console.error("사용자가 위치 정보 제공을 거부했습니다.");
-					alert("인증서가 없어서 위치정보를 가져올수 없습니다.");			
+					alert("PERMISSION_DENIED: 위치정보를 가져올수 없습니다.");			
 					showMap();
 					break;
 				case error.POSITION_UNAVAILABLE:
@@ -470,7 +470,7 @@ input[type="checkbox"] {
 </script>
 </head>
 <body>
-	<a href="/"> <span class="material-symbols-outlined">home</span> </a>
+	<!-- <a href="/"> <span class="material-symbols-outlined">home</span> </a> -->
 	<h1>주변 잘꺼리 찾기</h1>
 	<div class="coordinate-container">
 		<button id="selOriginBtn" title="위치 선택 버튼을 누르고 지도상의 보고싶은 지점을 클릭하세요">위치 선택</button>
@@ -481,21 +481,21 @@ input[type="checkbox"] {
 		</div>
 		<button id="showMap" class="button-coordinate">주변 검색</button>
 	</div>
-
-	<button id="myplace">내 위치 검색</button>
-	<!-- 	<div class="button-coordinate"> -->
-	<button id="delMarker" class="button-coordinate">마커 지우기</button>
-	<!-- <button id="zoomOut" class="button-coordinate">축소</button>
-	<button id="zoomIn" class="button-coordinate">확대</button> -->
-	<br>
+	<div class="button-container">
+		<button id="myplace">내 위치 검색</button>
+		<!-- 	<div class="button-coordinate"> -->
+		<button id="delMarker" class="button-coordinate">마커 지우기</button>
+		<!-- <button id="zoomOut" class="button-coordinate">축소</button>
+		<button id="zoomIn" class="button-coordinate">확대</button> -->
+	</div>
 	<!-- </div> -->
-	<div class="checkbox-container">
+	<%-- <div class="checkbox-container">
 		<c:forEach items="${catList}" var="item">
 			<div class="checkbox-item">
 				<input type="checkbox" name="item" value="${item.code}" checked> ${item.name}<br>
 			</div>
 		</c:forEach>
-	</div>
+	</div> --%>
 
 
 	<hr>

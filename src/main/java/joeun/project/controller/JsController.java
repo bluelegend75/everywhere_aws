@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; //비번암호화~ 라이브러리 추가ㅏㅏㅏ
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -426,38 +429,58 @@ public class JsController {
 	}
 
 	//이메일 인증
-	@PostMapping("/EmailAuth")
+	@PostMapping("/sendVerificationEmail")
 	@ResponseBody
-	public int emailAuth(String email) {
-		
-		System.out.println("전달 받은 이메일 주소 : " + email);
-		
-		//난수의 범위 111111 ~ 999999 (6자리 난수)
-		Random random = new Random();
-		int checkNum = random.nextInt(888888)+111111;
-		
-		//이메일 보낼 양식
-		String setFrom = "(qkdwnstlr98@naver.com)"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
-		String toMail = email;
-		String title = "회원가입 인증 이메일 입니다.";
-		String content = "인증 코드는 " + checkNum + " 입니다." +
-						 "<br>" +
-						 "해당 인증 코드를 인증 코드 확인란에 기입하여 주세요.";
-		
-		try {
-			MimeMessage message = mailSender.createMimeMessage(); //Spring에서 제공하는 mail API
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setFrom(setFrom);
-            helper.setTo(toMail);
-            helper.setSubject(title);
-            helper.setText(content, true);
-            mailSender.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("랜덤숫자: "+ checkNum);
-		return checkNum;
+	public ResponseEntity<Integer> emailAuth(@RequestBody Map<String, String> requestBody, HttpSession session) {
+	    String email = requestBody.get("email");
+	    System.out.println("전달 받은 이메일 주소 : " + email);
+
+	    // 난수의 범위 111111 ~ 999999 (6자리 난수)
+	    Random random = new Random();
+	    int checkNum = random.nextInt(888888) + 111111;
+
+	    // 이메일 보낼 양식
+	    String setFrom = "qkdwnstlr98@naver.com"; // 발신자 이메일
+	    String toMail = email; // 수신자 이메일
+	    String title = "회원가입 인증 이메일 입니다.";
+	    String content = "인증 코드는 " + checkNum + " 입니다." +
+	                     "<br>" +
+	                     "해당 인증 코드를 인증 코드 확인란에 기입하여 주세요.";
+
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage(); // Spring에서 제공하는 mail API
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	        helper.setFrom(setFrom);
+	        helper.setTo(toMail);
+	        helper.setSubject(title);
+	        helper.setText(content, true);
+	        mailSender.send(message);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // 오류 발생 시
+	    }
+
+	    System.out.println("랜덤숫자: " + checkNum);
+	    session.setAttribute("emailAuthCode", checkNum);
+	    session.setMaxInactiveInterval(300); // 300초 5분 후 세션 완료
+	    return ResponseEntity.ok(checkNum); // JSON 형식으로 인증 코드 반환
+	}
+	//인증확인
+	@PostMapping("/verifyEmailCode")
+	@ResponseBody
+	public boolean verifyEmailCode(int inputCode, HttpSession session) {
+	    // 세션에서 저장된 인증 코드 가져오기
+	    Integer authCode = (Integer) session.getAttribute("emailAuthCode");
+
+	    if (authCode != null && authCode == inputCode) {
+	        // 인증 성공
+	    	System.out.println("인증성공|+++++++++++++++++++++++");
+	        return true;
+	    } else {
+	        // 인증 실패
+	    	System.out.println("인증ㅅㅅㅅㅅ|+++++++++++++++++++++++");
+	        return false;
+	    }
 	}
 	
 	// 페이징 메소드~~~
