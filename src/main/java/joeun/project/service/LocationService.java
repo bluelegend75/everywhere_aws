@@ -23,4 +23,6 @@ public interface LocationService {
 
 	List<BolgguriViewDto> getNearbyJalgguri(double x, double y, double d);
 
+	List<BolgguriViewDto> getNearbyKeyword(double x, double y, double d, String keyword);
+
 }

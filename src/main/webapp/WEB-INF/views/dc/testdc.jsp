@@ -33,6 +33,7 @@
 	<a href="/contentImage">컨텐츠 이미지(content id별 이미지 경로) </a><br>
 	<a href="/api_common">공통정보(content id별) </a><br>
 	<a href="/api_disable">무장애정보(content id별) </a><br>
+	<a href="/nearKeyword">주변 키워드 검색</a><br>
 	
 	<br>
 </body>

@@ -16,5 +16,6 @@ public interface LocationMapper {
 		List<BolgguriViewDto> findNearbyMukgguri(Map<String, Object> params);
 		List<API_cat_code> selectJalgguriCat();
 		List<BolgguriViewDto> findNearbyJalgguri(Map<String, Object> params);
+		List<BolgguriViewDto> findNearbyKeyword(Map<String, Object> params);
 }
 

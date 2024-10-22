@@ -77,4 +77,16 @@ public class LocationServiceImpl implements LocationService {
 
 		return locationMapper.findNearbyJalgguri(params);
 	}
+
+	@Override
+	public List<BolgguriViewDto> getNearbyKeyword(double centerX, double centerY, double radius, String keyword) {
+		LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
+		Map<String, Object> params = new HashMap<>();
+		params.put("centerX", centerX);
+		params.put("centerY", centerY);
+		params.put("radius", radius);
+		params.put("keyword", keyword);
+
+		return locationMapper.findNearbyKeyword(params);
+	}
 }

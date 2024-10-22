@@ -122,7 +122,7 @@ ul, li {
 			</div>
 			<div class="footer_item footer_item4">
 				<div class="footer_container">
-					<a href="">
+					<a href="/nearKeyword">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> favorite </span>
 						</div>

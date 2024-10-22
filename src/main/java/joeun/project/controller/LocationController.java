@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import joeun.project.dto.API_cat_code;
 import joeun.project.dto.BolgguriViewDto;
+import joeun.project.dto.GpsKeyword;
 import joeun.project.dto.GpsPoint;
 import joeun.project.dto.Location;
 import joeun.project.service.LocationService;
@@ -277,5 +278,38 @@ public class LocationController {
 //		return ResponseEntity.ok(new JSONArray(nearBolgguri).toString());
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(new JSONArray(nearJalgguri).toString());
+	}
+	
+	@RequestMapping("/nearKeyword")
+	public String nearKeyword(Model model) {
+//		List<API_cat_code> catList = locationService.selectMukgguriCat();
+//		logger.debug("catList : "+catList);
+//		model.addAttribute("catList", catList);
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/nearKeyword";
+	}
+	@RequestMapping(value = "/getNearKeyword", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> getNearKeyword(@RequestBody List<GpsKeyword> coordinate) {
+		System.out.println("keyword:"+coordinate);
+		logger.debug("coordinateString;" + coordinate);
+		Set<BolgguriViewDto> nearKeyword = new HashSet<>();
+		// 각 지점에서 근처 지점 검색
+		for (GpsKeyword point : coordinate) {
+			System.out.println("point.getKeyword():"+point.getKeyword());
+			if(point.getKeyword() != "") {
+				List<BolgguriViewDto> locations = locationService.getNearbyKeyword(point.getX(), point.getY(),Double.parseDouble(point.getRadius())/100, point.getKeyword());
+				nearKeyword.addAll(locations);
+			}
+		}
+		logger.debug("nearKeyword:" + nearKeyword);
+
+		// 결과를 JSON 형태로 반환
+//		return ResponseEntity.ok(new JSONArray(nearBolgguri).toString());
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+				.body(new JSONArray(nearKeyword).toString());
 	}
 }

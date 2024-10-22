@@ -99,5 +99,23 @@ and rownum < 10
 ]]>
 		<!-- [ SELECT title, addr1, mapx, mapy,areacode,sigungucode FROM bolgguri WHERE SQRT(POWER(mapx - #{centerX}, 2) + POWER(mapy - #{centerY}, 2)) <= #{radius} 
 			order by mapx, mapy -->
-	</select>	
+	</select>		
+	<select id="findNearbyKeyword" parameterType="map" resultType="BolgguriViewDto"> 
+<![CDATA[
+        SELECT (select b.content_type_desc from content_type b where b.contenttypeid = a.contenttypeid) type
+		    ,(select name from cat_code where code = a.cat1) cat1
+		    ,(select name from cat_code where code = a.cat2) cat2
+		    ,(select name from cat_code where code = a.cat3) cat3 
+		    , a.title
+		    ,(select name from area_code where areacode = a.areacode) area
+		    ,(select name from sigungu_code where areacode = a.areacode and sigungu_code =a.SIGUNGU_CODE) sigungu
+		    , a.mapy x, a.mapx y, a.addr1,a.tel,a.BOLGGURI_ID contentid,a.c_date, a.firstimage2 firstimage
+				FROM bolgguri a
+				WHERE title like CONCAT(CONCAT('%', #{keyword}),'%')
+				AND SQRT(POWER(mapx - #{centerY}, 2) + POWER(mapy - #{centerX}, 2)) <= #{radius}
+				AND rownum < 200
+        order by mapx, mapy
+]]>
+	</select>
+	
 </mapper>
