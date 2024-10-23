@@ -260,7 +260,7 @@ table.icTable tr:nth-child(even) {
 			// 위치 정보를 가져오는 데 실패한 경우 실행되는 함수
 			function(error) {
 				console.error("위치 정보를 가져오는 데 실패했습니다:", error);
-				alert("인증서가 없어서 위치정보를 가져올수 없습니다.");			
+				alert("권한 부족: 위치정보를 가져올수 없습니다.");			
 				showMap();
 			});
 		} else {

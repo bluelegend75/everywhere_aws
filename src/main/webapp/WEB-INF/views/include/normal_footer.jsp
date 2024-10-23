@@ -110,9 +110,10 @@ ul, li {
 						<ul>
 							<a href="/Uannouncement"><li>공지사항</li></a>
 							<a href="/freeboard"><li>게시판</li></a>
-							<a href="#"><li>개인정보처리방침</li></a>
+							<a href="/personInfoPolicy"><li>개인정보처리방침</li></a>
 							<a href="#"><li>이용약관</li></a>
-							<li><button onclick="realtimeChat()" >실시간상담</button></li>
+							<!-- <li><button onclick="realtimeChat()" >실시간상담</button></li> -->
+							<li><button onclick="alert('서비스 예정입니다.')" >실시간상담</button></li>
 						</ul>
 					</div>
 				</div>

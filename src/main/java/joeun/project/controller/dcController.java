@@ -62,4 +62,14 @@ public class dcController {
 		return "/dc/testdc";
 	}
 	
+	@RequestMapping(value="/personInfoPolicy", method = RequestMethod.GET)
+	public String personInfoPolicy(Model model) {
+
+		return "/dc/personInfoPolicy";
+	}	
+	@RequestMapping(value="/personInfoPolicyApp", method = RequestMethod.GET)
+	public String personInfoPolicyApp(Model model) {
+
+		return "/dc/personInfoPolicyApp";
+	}
 }

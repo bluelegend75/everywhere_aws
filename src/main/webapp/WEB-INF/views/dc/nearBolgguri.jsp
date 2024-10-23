@@ -194,8 +194,8 @@ input[type="checkbox"] {
 			function(error) {
 				switch (error.code) {
 				case error.PERMISSION_DENIED:
-					console.error("사용자가 위치 정보 제공을 거부했습니다.");
-					alert("PERMISSION_DENIED: 위치정보를 가져올수 없습니다.");			
+					console.error("인증서가 없가나 사용자가 위치 정보 제공을 거부했습니다.");
+					alert("권한 부족: 위치정보를 가져올수 없습니다.");			
 					showMap();
 					break;
 				case error.POSITION_UNAVAILABLE:

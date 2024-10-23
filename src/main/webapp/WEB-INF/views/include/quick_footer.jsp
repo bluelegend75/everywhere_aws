@@ -89,27 +89,47 @@ ul, li {
 
 	<footer class="footer">
 		<div class="footer_wrap">
-			<div class="footer_item footer_item1">
-				<div class="footer_container">
-					<a href="/sh/user/referenceAi">
-						<div class="footer_icon">
-							<span class="material-symbols-outlined"> robot_2 </span>
-						</div>
-						<p>AI 추천</p>
-					</a>
-				</div>
-			</div>
 			<div class="footer_item footer_item2">
 				<div class="footer_container">
 					<a href="/nearBolgguri">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> near_me </span>
 						</div>
-						<p>내주변</p>
+						<p>볼꺼리</p>
+					</a>
+				</div>
+			</div>
+						<div class="footer_item footer_item2">
+				<div class="footer_container">
+					<a href="/nearMukgguri">
+						<div class="footer_icon">
+							<span class="material-symbols-outlined"> Restaurant </span>
+						</div>
+						<p>먹꺼리</p>
+					</a>
+				</div>
+			</div>
+						<div class="footer_item footer_item2">
+				<div class="footer_container">
+					<a href="/nearJalgguri">
+						<div class="footer_icon">
+							<span class="material-symbols-outlined"> Hotel </span>
+						</div>
+						<p>잘꺼리</p>
 					</a>
 				</div>
 			</div>
 			<div>
+			</div>
+						<div class="footer_item footer_item4">
+				<div class="footer_container">
+					<a href="/nearKeyword">
+						<div class="footer_icon">
+							<span class="material-symbols-outlined"> search </span>
+						</div>
+						<p>키워드</p>
+					</a>
+				</div>
 			</div>
 			<div class="footer_item footer_item3">
 				<div class="footer_container">
@@ -120,13 +140,24 @@ ul, li {
 					</a>
 				</div>
 			</div>
-			<div class="footer_item footer_item4">
+
+						<div class="footer_item footer_item4">
 				<div class="footer_container">
-					<a href="/nearKeyword">
+					<a href="/kakao_car">
 						<div class="footer_icon">
-							<span class="material-symbols-outlined"> favorite </span>
+							<span class="material-symbols-outlined"> directions_car </span>
 						</div>
-						<p>찜</p>
+						<p>경로</p>
+					</a>
+				</div>
+			</div>
+						<div class="footer_item footer_item1">
+				<div class="footer_container">
+					<a href="/sh/user/referenceAi">
+						<div class="footer_icon">
+							<span class="material-symbols-outlined"> robot_2 </span>
+						</div>
+						<p>AI 추천</p>
 					</a>
 				</div>
 			</div>

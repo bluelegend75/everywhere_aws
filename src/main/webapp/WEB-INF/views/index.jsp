@@ -749,7 +749,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item3">
 					<div class="menu_container">
-						<a href="/nearMukgguri">
+						<a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/food_icon.png" alt="먹거리">
 							</div>
@@ -759,7 +759,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item4">
 					<div class="menu_container">
-						<a href="/nearJalgguri">
+						<a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/hotel_icon.png" alt="숙박업">
 							</div>
