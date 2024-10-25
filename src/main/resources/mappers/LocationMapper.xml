@@ -117,5 +117,8 @@ and rownum < 10
         order by mapx, mapy
 ]]>
 	</select>
+	<select id="getMsg" resultType="String">
+	    select msg From appmsg
+	</select>	
 	
 </mapper>

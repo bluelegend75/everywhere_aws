@@ -89,4 +89,10 @@ public class LocationServiceImpl implements LocationService {
 
 		return locationMapper.findNearbyKeyword(params);
 	}
+	
+	@Override
+	public String getMsg() {
+		LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
+		return locationMapper.getMsg();
+	}
 }

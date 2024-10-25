@@ -312,4 +312,68 @@ public class LocationController {
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(new JSONArray(nearKeyword).toString());
 	}
+	
+	@RequestMapping("/nearBolgguriApp")
+	public String nearBolgguriApp(Model model) {
+//		List<API_cat_code> catList = locationService.selectBolgguriCat();
+//		logger.debug("catList : "+catList);
+//		model.addAttribute("catList", catList);
+		String msg = locationService.getMsg();
+		model.addAttribute("appMsg", msg);
+		
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/nearBolgguriApp";
+	}
+	@RequestMapping("/nearMukgguriApp")
+	public String nearMukgguriApp(Model model) {
+//		List<API_cat_code> catList = locationService.selectMukgguriCat();
+//		logger.debug("catList : "+catList);
+//		model.addAttribute("catList", catList);
+		String msg = locationService.getMsg();
+		model.addAttribute("appMsg", msg);
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/nearMukgguriApp";
+	}
+	@RequestMapping("/nearJalgguriApp")
+	public String nearJalgguriApp(Model model) {
+//		List<API_cat_code> catList = locationService.selectJalgguriCat();
+//		logger.debug("catList : "+catList);
+//		model.addAttribute("catList", catList);
+		String msg = locationService.getMsg();
+		model.addAttribute("appMsg", msg);
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/nearJalgguriApp";
+	}
+	@RequestMapping("/nearKeywordApp")
+	public String nearKeywordApp(Model model) {
+//		List<API_cat_code> catList = locationService.selectMukgguriCat();
+//		logger.debug("catList : "+catList);
+//		model.addAttribute("catList", catList);
+		String msg = locationService.getMsg();
+		model.addAttribute("appMsg", msg);
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/nearKeywordApp";
+	}
+	@RequestMapping("/kakao_carApp")
+	public String kakao_carApp(Model model) {
+		String msg = locationService.getMsg();
+		model.addAttribute("appMsg", msg);
+		
+		String kakaoApiKey="a7faa1b5042e8cffab85500d73eb2605";
+		model.addAttribute("kakaoApiKey",kakaoApiKey);
+		
+		return "dc/kakao_carApp";
+	}
 }

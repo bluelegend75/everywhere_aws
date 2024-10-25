@@ -34,6 +34,15 @@
 	<a href="/api_common">공통정보(content id별) </a><br>
 	<a href="/api_disable">무장애정보(content id별) </a><br>
 	<a href="/nearKeyword">주변 키워드 검색</a><br>
+	<a href="/personInfoPolicy">개인정보처리방침</a><br>
+	
+	<h1>App</h1>
+	<a href="/nearBolgguriApp">App 볼꺼리</a><br>
+	<a href="/nearMukgguriApp">App 먹꺼리</a><br>
+	<a href="/nearJalgguriApp">App 잘꺼리</a><br>	
+	<a href="/nearKeywordApp">App 키워드</a><br>	
+	<a href="/kakao_carApp">App 경로</a><br>	
+	<a href="/personInfoPolicyApp">App 개인정보처리방침</a><br>
 	
 	<br>
 </body>

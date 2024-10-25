@@ -9,13 +9,21 @@ import joeun.project.dto.Location;
 
 public interface LocationMapper {
 
-    List<BolgguriViewDto> findNearbyLocations(Map<String, Object> params);
-    List<BolgguriViewDto> getAllGpsPoints();
-		List<API_cat_code> selectBolgguriCat();
-		List<API_cat_code> selectMukgguriCat();
-		List<BolgguriViewDto> findNearbyMukgguri(Map<String, Object> params);
-		List<API_cat_code> selectJalgguriCat();
-		List<BolgguriViewDto> findNearbyJalgguri(Map<String, Object> params);
-		List<BolgguriViewDto> findNearbyKeyword(Map<String, Object> params);
-}
+	List<BolgguriViewDto> findNearbyLocations(Map<String, Object> params);
 
+	List<BolgguriViewDto> getAllGpsPoints();
+
+	List<API_cat_code> selectBolgguriCat();
+
+	List<API_cat_code> selectMukgguriCat();
+
+	List<BolgguriViewDto> findNearbyMukgguri(Map<String, Object> params);
+
+	List<API_cat_code> selectJalgguriCat();
+
+	List<BolgguriViewDto> findNearbyJalgguri(Map<String, Object> params);
+
+	List<BolgguriViewDto> findNearbyKeyword(Map<String, Object> params);
+	
+	String getMsg();
+}
