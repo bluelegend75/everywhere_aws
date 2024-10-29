@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<meta charset="UTF-8">
 			<title>${bolgguriDetails.title }</title>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -376,4 +377,18 @@ public class LocationController {
 		
 		return "dc/kakao_carApp";
 	}
+	@RequestMapping(value = "/getAppMsg", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> getAppMsg() {
+		String getAppMsg = locationService.getAppMsg();
+		System.out.println("getAppMsg:"+getAppMsg);
+		// 결과를 JSON 형태로 반환
+//		return ResponseEntity.ok(new JSONArray(nearBolgguri).toString());
+//		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(new JSONArray(nearKeyword).toString());
+//		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(new JSONArray(getAppMsg).toString());
+		JSONObject json = new JSONObject(); // JSONObject 객체 생성
+	    json.put("message", getAppMsg); // JSON 객체에 데이터 추가
+	    return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(json.toString()); // JSON 객체를 문자열로 변환하여 반환
+	}
+
 }

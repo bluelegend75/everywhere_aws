@@ -118,6 +118,9 @@ and rownum < 10
 ]]>
 	</select>
 	<select id="getMsg" resultType="String">
+	    select msg From appmsg_web
+	</select>	
+	<select id="getAppMsg" resultType="String">
 	    select msg From appmsg
 	</select>	
 	

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 먹꺼리</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
@@ -203,15 +204,18 @@ input[type="checkbox"] {
 					break;
 				case error.POSITION_UNAVAILABLE:
 					console.error("위치 정보를 사용할 수 없습니다.");
-					alert("위치 정보를 사용할 수 없습니다. 다시 시도해주세요.");
+					alert("위치 정보를 사용할 수 없습니다. 디폴트 위치로 진행합니다.");
+					showMap();
 					break;
 				case error.TIMEOUT:
 					console.error("위치 정보를 가져오는 시간이 초과되었습니다.");
-					alert("위치 정보를 가져오는 데 시간이 너무 오래 걸립니다. 다시 시도해주세요.");
+					alert("위치 정보를 가져오는 데 시간이 너무 오래 걸립니다. 디폴트 위치로 진행합니다");
+					showMap();
 					break;
 				default:
 					console.error("알 수 없는 오류가 발생했습니다.");
-					alert("위치 정보를 가져오는 도중 오류가 발생했습니다. 다시 시도해주세요.");
+					alert("위치 정보를 가져오는 도중 오류가 발생했습니다. 디폴트 위치로 진행합니다");
+					showMap();
 					break;
 				}
 			}, options);

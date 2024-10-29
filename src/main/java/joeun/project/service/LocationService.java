@@ -27,4 +27,6 @@ public interface LocationService {
 	
 	String getMsg();
 
+	String getAppMsg();
+
 }

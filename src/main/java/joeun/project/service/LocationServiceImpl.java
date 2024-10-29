@@ -95,4 +95,10 @@ public class LocationServiceImpl implements LocationService {
 		LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
 		return locationMapper.getMsg();
 	}
+
+	@Override
+	public String getAppMsg() {
+		LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
+		return locationMapper.getAppMsg();
+	}
 }

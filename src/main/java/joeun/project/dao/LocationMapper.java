@@ -26,4 +26,6 @@ public interface LocationMapper {
 	List<BolgguriViewDto> findNearbyKeyword(Map<String, Object> params);
 	
 	String getMsg();
+	
+	String getAppMsg();
 }
