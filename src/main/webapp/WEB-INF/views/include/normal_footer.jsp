@@ -123,6 +123,8 @@ ul, li {
 				</div>
 				<div class="footer_bottom">
 					<p>※ 본 프로젝트는 지역별, 테마별 여행지를 관리하고 리스트를 토대로 일반 유저들에게 여행 추천을 해주기 위한 온라인 플랫폼 서비스 구현을 목적으로 만들었습니다.</p>
+					<br>
+					<p>※ 문의 : bluelegend75@gmail.com</p>
 				</div>
 				<div class="style_cont">
 					<p>TEAM</p>

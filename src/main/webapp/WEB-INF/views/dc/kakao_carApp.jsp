@@ -435,7 +435,7 @@ table.icTable tr:nth-child(even) {
 		// 지도를 생성합니다
 		var mapContainer = document.getElementById('map'), mapOption = {
 			center : new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심 좌표 (서울 시청 기준)
-			level : 12
+			level : 11
 		// 지도의 확대 레벨
 		};
 
@@ -460,150 +460,153 @@ table.icTable tr:nth-child(even) {
 		var destination_lng = $("#endYlng").val();
 		var destination = destination_lng + "," + destination_lat;
 		console.log("destination :" + destination);
+		if(destination_lat != "" && destination_lng != ""){
+			// 자동차 길찾기 API를 호출합니다
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://apis-navi.kakaomobility.com/v1/directions?origin="
+					+ origin + "&destination=" + destination + "&road_details=true", true);
+			xhr.setRequestHeader("Authorization",
+					"KakaoAK 70e9f6f25e81ba5f30cddeb16cc1f856");
 
-		// 자동차 길찾기 API를 호출합니다
-		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://apis-navi.kakaomobility.com/v1/directions?origin="
-				+ origin + "&destination=" + destination + "&road_details=true", true);
-		xhr.setRequestHeader("Authorization",
-				"KakaoAK 70e9f6f25e81ba5f30cddeb16cc1f856");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					response = JSON.parse(xhr.responseText);
+					//console.log("response", response);
+					routes = response.routes[0].sections[0].roads;
+					//console.log("routes", routes);
 
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				response = JSON.parse(xhr.responseText);
-				//console.log("response", response);
-				routes = response.routes[0].sections[0].roads;
-				//console.log("routes", routes);
+					//IC 정보 가져오기
+					var icInfo = response.routes[0].sections[0].guides;
+					//console.log("icInfo:", icInfo);
+					var tableBody = $('#icTable tbody');
+					tableBody.empty();
+					//console.log("icInfo.lenght", icInfo.length);
+					coordinate = [];// ajax 요청할 ic 좌표 배열를  초기화
+					var duration_sum = 0;//소요시간 합
+					for (var i = 0, j = 1; i < icInfo.length; i++) {
+						var ic = icInfo[i];
+						//console.log("ic" + ic);
+						duration_sum += ic.duration;
+						if (ic.name.includes("IC")) {
+							//console.log(ic.name, ic.x, ic.y);
 
-				//IC 정보 가져오기
-				var icInfo = response.routes[0].sections[0].guides;
-				//console.log("icInfo:", icInfo);
-				var tableBody = $('#icTable tbody');
-				tableBody.empty();
-				//console.log("icInfo.lenght", icInfo.length);
-				coordinate = [];// ajax 요청할 ic 좌표 배열를  초기화
-				var duration_sum = 0;//소요시간 합
-				for (var i = 0, j = 1; i < icInfo.length; i++) {
-					var ic = icInfo[i];
-					//console.log("ic" + ic);
-					duration_sum += ic.duration;
-					if (ic.name.includes("IC")) {
-						//console.log(ic.name, ic.x, ic.y);
+							coordinate.push({
+								title : $('#radius').val(), //radius
+								x : ic.y,
+								y : ic.x
+							});
 
-						coordinate.push({
-							title : $('#radius').val(), //radius
-							x : ic.y,
-							y : ic.x
-						});
+							var newRow = $('<tr></tr>');
+							newRow.append($('<td></td>').text(j++));
+							newRow.append($('<td></td>').text(ic.name));
+							/* 						newRow.append($('<td></td>').text(ic.y));
+							 newRow.append($('<td></td>').text(ic.x));
+							 newRow.append($('<td></td>').text(ic.distance));
+							 newRow.append($('<td></td>').text(ic.duration));
+							 newRow.append($('<td></td>').text(duration_sum));*/
+							newRow.append($('<td></td>').text(secondsToHMS(duration_sum)));
+							newRow.append($('<td></td>').text(
+									addSecondsToCurrentTime(duration_sum)));
+							addMarker(new kakao.maps.LatLng(ic.y, ic.x), ic.name, "IC");
+							//마커,인포 윈도우 생성
+							/* icMarker = new kakao.maps.Marker({
+								position : new kakao.maps.LatLng(ic.y, ic.x),
+								map : map,
+								title : ic.name
+							});
+							icMarker.setMap(map); */
+							/*   					icInfoWindow = new kakao.maps.InfoWindow({
+							 position: new kakao.maps.LatLng(ic.y,ic.x),
+							 content: ic.name
+							 }); 
+							 icInfoWindow.open(map,icMarker);  */
 
-						var newRow = $('<tr></tr>');
-						newRow.append($('<td></td>').text(j++));
-						newRow.append($('<td></td>').text(ic.name));
-						/* 						newRow.append($('<td></td>').text(ic.y));
-						 newRow.append($('<td></td>').text(ic.x));
-						 newRow.append($('<td></td>').text(ic.distance));
-						 newRow.append($('<td></td>').text(ic.duration));
-						 newRow.append($('<td></td>').text(duration_sum));*/
-						newRow.append($('<td></td>').text(secondsToHMS(duration_sum)));
-						newRow.append($('<td></td>').text(
-								addSecondsToCurrentTime(duration_sum)));
-						addMarker(new kakao.maps.LatLng(ic.y, ic.x), ic.name, "IC");
-						//마커,인포 윈도우 생성
-						/* icMarker = new kakao.maps.Marker({
-							position : new kakao.maps.LatLng(ic.y, ic.x),
-							map : map,
-							title : ic.name
-						});
-						icMarker.setMap(map); */
-						/*   					icInfoWindow = new kakao.maps.InfoWindow({
-						 position: new kakao.maps.LatLng(ic.y,ic.x),
-						 content: ic.name
-						 }); 
-						 icInfoWindow.open(map,icMarker);  */
+						}
+						tableBody.append(newRow);
 
 					}
-					tableBody.append(newRow);
-
-				}
-				var duration_arrived = duration_sum;
-				$('#arrivedTime').text(
-						'소요시간: ' + secondsToHMS(duration_arrived) + '(도착:'
-								+ addSecondsToCurrentTime(duration_arrived) + ')');
-				var linePath = [];
-				//debugger;
-				// 경로 데이터를 변환하여 지도에 표시할 수 있도록 합니다
-				for (var i = 0; i < routes.length; i++) {
-					var road = routes[i];
-					for (var j = 0; j < road.vertexes.length; j += 2) {
-						var lat = road.vertexes[j + 1];
-						var lng = road.vertexes[j];
-						linePath.push(new kakao.maps.LatLng(lat, lng));
+					var duration_arrived = duration_sum;
+					$('#arrivedTime').text(
+							'소요시간: ' + secondsToHMS(duration_arrived) + '(도착:'
+									+ addSecondsToCurrentTime(duration_arrived) + ')');
+					var linePath = [];
+					//debugger;
+					// 경로 데이터를 변환하여 지도에 표시할 수 있도록 합니다
+					for (var i = 0; i < routes.length; i++) {
+						var road = routes[i];
+						for (var j = 0; j < road.vertexes.length; j += 2) {
+							var lat = road.vertexes[j + 1];
+							var lng = road.vertexes[j];
+							linePath.push(new kakao.maps.LatLng(lat, lng));
+						}
 					}
+
+					// 경로를 따라 폴리라인을 그립니다
+					var polyline = new kakao.maps.Polyline({
+						path : linePath, // 폴리라인 경로를 설정합니다
+						strokeWeight : 5, // 선의 두께
+						strokeColor : '#FF0000', // 선의 색깔
+						strokeOpacity : 0.8, // 선의 불투명도
+						strokeStyle : 'solid' // 선의 스타일
+					});
+
+					polyline.setMap(map); // 지도에 경로를 표시합니다
+
+					// 출발지와 목적지에 마커를 표시합니다
+					var startMarker = new kakao.maps.Marker(
+							{
+								position : new kakao.maps.LatLng(origin_lat, origin_lng),
+								map : map,
+								title : "출발지",
+								image : new kakao.maps.MarkerImage(
+										'/resources/dc/image/markerStar.png', new kakao.maps.Size(24,
+												35))
+							});
+					var customOverlay = new kakao.maps.CustomOverlay(
+							{// 커스텀 오버레이를 생성
+								position : new kakao.maps.LatLng(origin_lat, origin_lng),
+								content : '<span class="info-title" style=" background-color: violet;">출발지</span>',
+								xAnchor : 0,
+								yAnchor : 1
+							});
+					markerInfoWindows.push(customOverlay);
+					customOverlay.setMap(map);// 커스텀 오버레이를 지도에 표시
+
+					var endMarker = new kakao.maps.Marker(
+							{
+								position : new kakao.maps.LatLng(destination_lat, destination_lng),
+								map : map,
+								title : "목적지",
+								image : new kakao.maps.MarkerImage(
+										'/resources/dc/image/markerStar.png', new kakao.maps.Size(24,
+												35))
+							});
+
+					customOverlay = new kakao.maps.CustomOverlay(
+							{// 커스텀 오버레이를 생성
+								position : new kakao.maps.LatLng(destination_lat, destination_lng),
+								content : '<span class="info-title" style=" background-color: violet;">목적지</span>',
+								xAnchor : 0,
+								yAnchor : 1
+							});
+					markerInfoWindows.push(customOverlay);
+					// 커스텀 오버레이를 지도에 표시합니다
+					customOverlay.setMap(map);
+
+					// 지도 중심을 경로의 중간지점으로 이동합니다
+					var bounds = new kakao.maps.LatLngBounds();
+					bounds.extend(new kakao.maps.LatLng(origin_lat, origin_lng));
+					bounds.extend(new kakao.maps.LatLng(destination_lat, destination_lng));
+					map.setBounds(bounds);
+
+					myAjaxFunction();
 				}
+			};
 
-				// 경로를 따라 폴리라인을 그립니다
-				var polyline = new kakao.maps.Polyline({
-					path : linePath, // 폴리라인 경로를 설정합니다
-					strokeWeight : 5, // 선의 두께
-					strokeColor : '#FF0000', // 선의 색깔
-					strokeOpacity : 0.8, // 선의 불투명도
-					strokeStyle : 'solid' // 선의 스타일
-				});
-
-				polyline.setMap(map); // 지도에 경로를 표시합니다
-
-				// 출발지와 목적지에 마커를 표시합니다
-				var startMarker = new kakao.maps.Marker(
-						{
-							position : new kakao.maps.LatLng(origin_lat, origin_lng),
-							map : map,
-							title : "출발지",
-							image : new kakao.maps.MarkerImage(
-									'/resources/dc/image/markerStar.png', new kakao.maps.Size(24,
-											35))
-						});
-				var customOverlay = new kakao.maps.CustomOverlay(
-						{// 커스텀 오버레이를 생성
-							position : new kakao.maps.LatLng(origin_lat, origin_lng),
-							content : '<span class="info-title" style=" background-color: violet;">출발지</span>',
-							xAnchor : 0,
-							yAnchor : 1
-						});
-				markerInfoWindows.push(customOverlay);
-				customOverlay.setMap(map);// 커스텀 오버레이를 지도에 표시
-
-				var endMarker = new kakao.maps.Marker(
-						{
-							position : new kakao.maps.LatLng(destination_lat, destination_lng),
-							map : map,
-							title : "목적지",
-							image : new kakao.maps.MarkerImage(
-									'/resources/dc/image/markerStar.png', new kakao.maps.Size(24,
-											35))
-						});
-
-				customOverlay = new kakao.maps.CustomOverlay(
-						{// 커스텀 오버레이를 생성
-							position : new kakao.maps.LatLng(destination_lat, destination_lng),
-							content : '<span class="info-title" style=" background-color: violet;">목적지</span>',
-							xAnchor : 0,
-							yAnchor : 1
-						});
-				markerInfoWindows.push(customOverlay);
-				// 커스텀 오버레이를 지도에 표시합니다
-				customOverlay.setMap(map);
-
-				// 지도 중심을 경로의 중간지점으로 이동합니다
-				var bounds = new kakao.maps.LatLngBounds();
-				bounds.extend(new kakao.maps.LatLng(origin_lat, origin_lng));
-				bounds.extend(new kakao.maps.LatLng(destination_lat, destination_lng));
-				map.setBounds(bounds);
-
-				myAjaxFunction();
-			}
-		};
-
-		xhr.send();
+			xhr.send();
+		}else{
+			alert("목적지 선택 후 경로보기를 눌러주세요");
+		}
 
 		//
 	}
@@ -621,10 +624,10 @@ table.icTable tr:nth-child(even) {
 		</div>
 		<button id="selEndBtn" title="목적지 선택 버튼을 누르고 지도에서 도착지점을 클릭하세요">목적지 선택</button>
 		<div class="invisible">
-			위도(lat) <input type="text" id="endXlat" value="38.07557169747447">
-			경도(lng) <input type="text" id="endYlng" value="128.61887150148573">
+			위도(lat) <input type="text" id="endXlat" value="">
+			경도(lng) <input type="text" id="endYlng" value="">
 		</div>
-		검색 반경 <input type="text" id="radius" value="10"> km
+		검색 반경 <input type="text" id="radius" value="7"> km
 		<button id="showMap" title="선택된 출발지, 목적지 에 대한 경로와 IC주변 볼꺼리를 보여줍니다.">경로 보기</button>
 	</div>
 
