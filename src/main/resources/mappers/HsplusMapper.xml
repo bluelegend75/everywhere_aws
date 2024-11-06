@@ -5,12 +5,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="joeun.project.dao.HsplusDao">
 
     <insert id="insert">
-        insert into plus(query_id,id, content, content_answer, suc)
-        values(query_id.nextval,#{id}, #{content, jdbcType=VARCHAR}, null,'대기중')
+        insert into plus(query_id,id, content, content_answer, suc,cr_date)
+        values(query_id.nextval,#{id}, #{content, jdbcType=VARCHAR}, null,'대기중',sysdate)
     </insert>
     
     <select id="select" resultType="joeun.project.dto.HsplusDto">
-    	SELECT * FROM plus order by suc
+    	SELECT * FROM plus order by suc,query_id desc
 	</select>
 	
 	<update id="update">

@@ -37,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="announcement" resultType="joeun.project.dto.HsfaqDto">
 		select * from faq where
 		category='공지사항'
+		order by id desc
 	</select>
 
 <!-- 	<select id="selectAnnouncementsWithPagination"

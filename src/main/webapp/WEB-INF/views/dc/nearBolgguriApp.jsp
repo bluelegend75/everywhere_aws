@@ -393,6 +393,7 @@ input[type="checkbox"] {
 	}
 
 	function chkPosition() {
+		alert("지도상의 위치를 찍어주세요");
 		if (startMarker !== null) {
 			startMarker.setMap(null); // 이전 마커 제거
 			//startMarkerinfo.close();// 이전 인포윈도우 제거

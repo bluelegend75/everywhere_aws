@@ -66,19 +66,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		OFFSET #{offset} ROWS
 		FETCH NEXT #{limit} ROWS ONLY
 	</select> -->
-<select id="selectAllWithPagination" parameterType="map" resultType="joeun.project.dto.HsFreeBoardDto">
+<!-- <select id="selectAllWithPagination" parameterType="map" resultType="joeun.project.dto.HsFreeBoardDto">
 <![CDATA[
-    SELECT * FROM (
-        SELECT /*+ FIRST_ROWS(n) */
+    SELECT /*+ FIRST_ROWS(n) */* FROM (
+        SELECT 
             FREEBOARD.*, ROWNUM rnum
         FROM FREEBOARD
         WHERE is_deleted = 'N' 
         AND ROWNUM <= #{offset} + #{limit}
-        ORDER BY created_at DESC
+        ORDER BY created_at desc
     )
     WHERE rnum > #{offset}
 ]]>    
-</select>
+</select> -->
+	<select id="selectAllWithPagination" parameterType="map" resultType="joeun.project.dto.HsFreeBoardDto">
+	<![CDATA[
+		select *
+		from (
+		    select a.*,rownum rnum 
+		    from (
+		        select * from freeboard
+		        where is_deleted = 'N' 
+		        order by created_at desc
+		    ) a
+		)
+		where ROWNUM <= #{offset} + #{limit}
+		and rnum > #{offset}
+	]]>    
+	</select>
 
 	<!-- 게시글 총 수 조회 -->
 	<select id="getTotalBoardCount" resultType="int">

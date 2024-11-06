@@ -182,7 +182,7 @@ ul, li {
 					<!-- 왼쪽: 제목과 작성자 -->
 					<div class="board-info">
 						<a href="/freeboard/view?id=${board.id}" class="board-title">${board.title}</a>
-						<span class="board-writer">작성자: ${board.writer}</span>
+						<span class="board-writer">작성자: ${board.writer} (작성일: ${board.created_At})</span>
 					</div>
 
 					<!-- 오른쪽: 조회수와 좋아요 -->
