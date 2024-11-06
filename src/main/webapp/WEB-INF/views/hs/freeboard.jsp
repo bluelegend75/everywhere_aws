@@ -156,6 +156,15 @@ ul, li {
 		if (msg) {
 			alert(msg);
 		}
+    // 문의하기 버튼 클릭 시 세션 확인
+    $('.question_plus').on('click', function(event) {
+        var userId = '${sessionScope.user_id}';
+        if (!userId) {
+            event.preventDefault(); // 폼 제출 방지
+            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+            window.location.href = '/js/login'; // 로그인 페이지로 리다이렉트
+        }
+    });
 	}
 </script>
 </head>
@@ -171,7 +180,7 @@ ul, li {
 					<h1>자유게시판</h1>
 					<p>(${totalCount})</p>
 				</div>
-				<button>
+				<button class="question_plus">
 					<a href="/freeboard/write">글쓰기</a>
 				</button>
 			</div>

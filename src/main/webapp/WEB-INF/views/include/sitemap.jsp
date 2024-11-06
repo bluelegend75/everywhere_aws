@@ -196,10 +196,10 @@ ul, li {
 				<div class="sitemap_title">카테고리</div>
 				<div class="sitemap_menu">
 					<ul>
-						<li><a href="/mw/bolgguriMain">볼거리</a></li>
-						<li><a href="#">놀거리</a></li>
-						<li><a href="#">먹거리</a></li>
-						<li><a href="#">숙박업</a></li>
+						<li><a href="/mw/bolgguriMain">볼꺼리</a></li>
+						<li><a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">먹꺼리</a></li>
+						<li><a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">잘꺼리</a></li>
+						<li><a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">놀꺼리</a></li>
 						<li><a href="/sh/user/referenceAi">여행추천 AI</a></li>
 						<li><a href="/nearBolgguri">내 주변 볼거리</a></li>
 						<li><a href="/kakao_car">경로 볼거리</a></li>
