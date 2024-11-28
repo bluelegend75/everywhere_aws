@@ -16,6 +16,11 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/img/**" location="/resources/img" />
 	<resources mapping="/imgMw/**" location="/resources/imgMw" />
+	<!-- <resources mapping="/robots.txt" location="/resources/robots.txt" />
+	<resources mapping="/sitemap.xml" location="/resources/sitemap.xml" /> -->
+	<resources mapping="/robots.txt" location="/" />
+	<resources mapping="/sitemap.xml" location="/" />
+	<resources mapping="/favicon.ico" location="/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

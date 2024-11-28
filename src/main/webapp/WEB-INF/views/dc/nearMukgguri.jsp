@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 먹꺼리</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
@@ -151,7 +152,7 @@ input[type="checkbox"] {
 	var markers = [];// 지도에 표시된 마커 객체를 가지고 있을 배열
 	var markerInfoWindows = [];//마커 인포윈도우 배열
 	var circles = [];
-	var mlevel=6;
+	var mlevel=7;
 	//const { kakao } = window;
 
 	$(document).ready(function() {
@@ -475,7 +476,7 @@ input[type="checkbox"] {
 	<h1>주변 먹꺼리 찾기</h1>
 	<div class="coordinate-container">
 		<button id="selOriginBtn" title="위치 선택 버튼을 누르고 지도상의 보고싶은 지점을 클릭하세요">위치 선택</button>
-		검색 반경 <input type="text" id="radius" value="2"> km
+		검색 반경 <input type="text" id="radius" value="7"> km
 		<div class="invisible">
 			위도(lat) <input type="text" id="startXlat" value="37.596690572396454"> 
 			경도(lng) <input type="text" id="startYlng" value="126.67263577746134">

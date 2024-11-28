@@ -117,7 +117,7 @@ public class YhController {
 	        // 반경 5km 내의 위치 데이터를 가져오기
 	        double radius = 5.0; // 반경 5km
 	        List<YhBolgguri_nearbyDto> nearbyLocations = yhService.getLocations(centerX, centerY, radius);
-	        System.out.println(nearbyLocations);
+	        //System.out.println(nearbyLocations);
 	        // 리뷰 페이징 처리
 	        int totalReviewCount = yhService.countReviews(bolgguri_id); // 전체 리뷰 수
 	        int offset = (page - 1) * size;
@@ -138,7 +138,7 @@ public class YhController {
 	        
 	        List<YhAccess_Facil_CodeDto> accessFacilCode = yhService.getAccessFacilCodesByFacilId(bolgguri_id);
 	        List<YhBolgguri_ReviewDto> reviewList = yhService.selectReviewWithPaging(params);
-	        System.out.println(reviewList);
+	        //System.out.println(reviewList);
 	        // 각 리뷰에 대해 좋아요 여부 확인 및 처리
 	        boolean liked = false;
 	        boolean isLiked = false;
@@ -147,9 +147,9 @@ public class YhController {
 	        }
 	            for (YhBolgguri_ReviewDto review : reviewList) {
 	                String write_user_id = review.getUser_id();
-	                System.out.println("test,write_user_id by getUser_id: "+write_user_id);
+	                //System.out.println("test,write_user_id by getUser_id: "+write_user_id);
 	                review.setUser_id(user_id);
-	                System.out.println("test,review.setUser_id by session user_id: "+user_id);
+	                //System.out.println("test,review.setUser_id by session user_id: "+user_id);
 	                isLiked = yhService.reviewLikedByUser(review);
 		            if(user_id == null) {
 		            	isLiked = false;
@@ -203,7 +203,7 @@ public class YhController {
 	        // 반경 5km 내의 위치 데이터를 가져오기
 	        double radius = 5.0; // 반경 5km
 	        List<YhBolgguri_nearbyDto> nearbyLocations = yhService.getLocations(centerX, centerY, radius);
-	        System.out.println(nearbyLocations);
+	        //System.out.println(nearbyLocations);
 	        // 리뷰 페이징 처리
 	        int totalReviewCount = yhService.countReviews(bolgguri_id); // 전체 리뷰 수
 	        int offset = (page - 1) * size;
@@ -224,7 +224,7 @@ public class YhController {
 	        
 	        List<YhAccess_Facil_CodeDto> accessFacilCode = yhService.getAccessFacilCodesByFacilId(bolgguri_id);
 	        List<YhBolgguri_ReviewDto> reviewList = yhService.selectReviewWithPaging(params);
-	        System.out.println(reviewList);
+	        //System.out.println(reviewList);
 	        // 각 리뷰에 대해 좋아요 여부 확인 및 처리
 	        boolean liked = false;
 	        boolean isLiked = false;

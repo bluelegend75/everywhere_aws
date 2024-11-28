@@ -67,7 +67,7 @@ input[type="checkbox"] {
 
 /* 컨텐츠2 리스트 검색  */
 .content_zone2 .content_zone_wrap{
-	padding-top: 50px;
+	padding-top: 20px; 
 	width: 100%;
 	max-width: 57rem;
 	display: flex;
@@ -191,7 +191,7 @@ input[type="checkbox"] {
 	font-size: 17px;
 }
 .list_search_filter_container, .map_search_filter_container{
-	padding: 20px 5px 0 5px;
+	padding: 10px 5px 0 5px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -303,7 +303,7 @@ input[type="checkbox"] {
 	cursor: pointer;
 }
 .list_best_header_container{
-	padding: 60px 5px 40px 5px;
+	padding: 20px 5px 10px 5px;
 }
 .list_best_header_area{
 	font-size: 20px;
@@ -387,7 +387,7 @@ input[type="checkbox"] {
 	font-weight: bold;
 }
 .list_searchBox_container{
-	padding: 50px 5px 5px 5px;
+	padding: 10px 5px 5px 5px;
 }
 .list_searchBox{
 	width: 100%;
@@ -414,7 +414,7 @@ input[type="checkbox"] {
 .list_search_item_header_container{
 	display: flex;
 	align-items: center;
-	padding: 30px 5px 10px 5px;
+	padding: 10px 5px 10px 5px;
 }
 .list_search_item_header_title{
 	margin-right: 10px;
@@ -451,12 +451,12 @@ input[type="checkbox"] {
 }
 .list_search_item_container{
 	width: 100%;
-	padding: 30px 5px 5px 5px;
+	padding: 10px 5px 5px 5px;
 }
 .list_search_item{
 	color: black;
 	display: flex;
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 }
 .list_search_item_img_container{
 	width: 50%;
@@ -539,7 +539,7 @@ input[type="checkbox"] {
 	font-size: 17px;
 }
 .map_container{
-	margin: 30px 0;
+	margin: 10px 0;
 	width: 800px;
 	height: 810px;
 	position: relative;
@@ -752,7 +752,7 @@ input[type="checkbox"] {
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9056ed48938cd0df8832ad3476f30ba8"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a7faa1b5042e8cffab85500d73eb2605"></script>
 <script>
     $(document).ready(function() {
     	// 리스트 검색 변수
@@ -1788,8 +1788,8 @@ input[type="checkbox"] {
 		<div class="content_zone_wrap">
 			<div class="content_zone1_container">
 				<div class="banner_container">
-					<a href="/sh/user/referenceAi" class="banner_item">
-						<img class="banner_img" src="${pageContext.request.contextPath}/resources/img/robot_banner2.png">
+					<a href="/nearBolgguri" class="banner_item">
+						<img class="banner_img" src="${pageContext.request.contextPath}/resources/img/robot_banner4.png">
 					</a>
 				</div>
 			</div>

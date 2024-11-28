@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /admin
+Disallow: /usersSelect
+Disallow: /mw/mwAdminSearchUpdate
+Disallow: /sh/admin/productOptionRegion
+Disallow: /sh/admin/referAiOptionListAdm
+Disallow: /bolgguri
+Disallow: /bolgguri2
+Disallow: /jalgguri
+Disallow: /mukgguri
+Disallow: /cat_code
+Disallow: /area_code
+Disallow: /intro12
+Disallow: /intro14
+Disallow: /contentImage
+Disallow: /api_common
+Disallow: /api_disable
+Disallow: /js/myPage
+
+Allow: /
+Sitemap: https://www.bluelegend.net/sitemap.xml

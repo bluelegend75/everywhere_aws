@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 볼꺼리</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
@@ -104,7 +105,31 @@ hr {
 input[type="checkbox"] {
 	margin-right: 10px;
 }
+.invisible {
+	display: none;
+}
+#loading-indicator {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
 
+.spinner {
+    border: 4px solid #f3f3f3; /* Light gray */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 @media ( max-width : 600px) {
 	button, input[type="text"] {
 		width: 30%;
@@ -163,6 +188,38 @@ input[type="checkbox"] {
 		$('#zoomOut').click(zoomOut);
 		$('#myplace').click(getUserLocation);
 	});
+	
+	window.addEventListener('pageshow', function (event) {
+	    const loadingIndicator = document.getElementById('loading-indicator');
+	    if (loadingIndicator && event.persisted) { // 페이지가 캐시에서 로드되었는지 확인
+	        loadingIndicator.style.display = 'none';
+	    }
+	});
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    const links = document.querySelectorAll('a'); // 모든 링크에 적용, 필요 시 필터링
+
+	    links.forEach(link => {
+	        link.addEventListener('click', function (event) {
+	            const loadingIndicator = document.getElementById('loading-indicator');
+	            
+	            // 로딩 메시지 표시
+	            if (loadingIndicator) {
+	                loadingIndicator.style.display = 'block';
+	            }
+	            
+	            // 링크 연결 지연을 방지하기 위해 timeout 사용하지 않음
+	        });
+	    });
+
+	});
+	function showLoading() {
+	    const loadingIndicator = document.getElementById('loading-indicator');
+	    if (loadingIndicator) {
+	        loadingIndicator.style.display = 'block';
+	    }
+	}
+	
 	function getUserLocation() {
 		origin_lat=$("#startXlat").val();
 		origin_lng=$("#startYlng").val();
@@ -263,7 +320,8 @@ input[type="checkbox"] {
 			+ '<span class="info-cat1">'
 			+ title + '</span></a>'; */
 			var iwContent = '<a href="/detail_view?bolgguri_id=' + contentid+'" id="' + contentid
-					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')">'
+					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')" '
+					+ 'onclick="showLoading()">'
 					+ '<span class="info-cat1">' + title + '</span></a>';
 		} else {
 			/* var iwContent = '<a href="/" id="' + contentid + '"><span class="info-cat2">'
@@ -439,7 +497,7 @@ input[type="checkbox"] {
 			x : $("#startXlat").val(),
 			y : $("#startYlng").val()
 		});
-		console.log("coordinate", coordinate);
+		//console.log("coordinate", coordinate);
 		// AJAX 요청
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "/getNearBolgguri", true);
@@ -557,6 +615,10 @@ input[type="checkbox"] {
 		<button id="delMarker" class="button-coordinate">마커 지우기</button>
 		<!-- <button id="showMap" class="button-coordinate">주변 검색</button> -->		
 		<button id="mukgguri" class="button-coordinate">먹꺼리 검색</button>	
+	</div>
+	<div id="loading-indicator" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <div class="spinner"></div>
+   	검색 중..잠시만 기다려 주세요...
 	</div>
 
 <%-- 	<div class="checkbox-container">

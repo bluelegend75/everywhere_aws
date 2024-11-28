@@ -253,6 +253,7 @@
 
             // 사업자 회원 탭 클릭 시
             $('#businessTab').click(function () {
+            		//alert('서비스 예정입니다.');
                 $('#personalForm').hide();       // 개인 회원 폼 숨기기
                 $('#businessForm').show();       // 사업자 회원 폼 표시
                 $(this).addClass('active');      // 현재 탭 활성화
@@ -481,7 +482,8 @@
                         <div class="regi">
 
                             <div class="regi_user">
-                                <a href="/b2b_login">
+                                <!-- <a href="/b2b_login"> -->
+                                <a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">
                                     <p>회원가입하기</p>
                                 </a>
                             </div>

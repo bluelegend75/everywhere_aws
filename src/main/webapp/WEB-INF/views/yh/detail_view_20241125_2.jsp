@@ -555,8 +555,8 @@
 			/* 모달 닫기 버튼 */
 			.modal .close {
 			    position: absolute;
-			    top: 10px;
-			    right: 10%;
+			    top: 20px;
+			    right: 35px;
 			    color: white;
 			    font-size: 40px;
 			    font-weight: bold;
@@ -567,7 +567,7 @@
 			.modal-content {
 			    margin: auto;
 			    display: block;
-			    width: 90%;
+			    width: 50%;
 			    height: 60%;
 			    max-width: 1000px;
 			    max-height: 800px;
@@ -615,46 +615,59 @@
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 			<script>
+			let slideIndex1 = 0; // 초기 인덱스를 0으로 설정
+			let autoSlideInterval1; // 자동 슬라이드용 인터벌 변수
+			let slideWidth, startPoint, endPoint; // 슬라이드 너비를 전역 변수로 선언
+
+/* 			function showSlides1() {
+			    let slides = document.querySelectorAll('.content_zone1 .slide_item');
+			    let slideGroup = document.querySelector('.content_zone1 .slide_group');
+			    slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진
+			    let initialOffset = 130; // 초기 위치를 설정
+			    slideGroup.style.transition = 'transform 0.5s ease';
+			    slideGroup.style.transform = 'translateX(' + (initialOffset + (-slideWidth * slideIndex1)) + 'px)';
+
+			    slideIndex1++;
+			    console.log('slideIndex1:', slideIndex1);
+			    if (slideIndex1 >= slides.length) {
+			        slideIndex1 = 0; 
+			    }
+			}
+
+			// setInterval로 2초마다 자동 슬라이드 변경
+			autoSlideInterval1 = setInterval(showSlides1, 2000); */
 
 			document.addEventListener("DOMContentLoaded", function() {
-				let slideIndex1 = 0; // 초기 인덱스를 0으로 설정
-				let autoSlideInterval1; // 자동 슬라이드용 인터벌 변수
-				let slideWidth, startPoint, endPoint; // 슬라이드 너비를 전역 변수로 선언
-				
 			    const slideGroup1 = document.querySelector('.content_zone1 .slide_group');
-			    const slides = document.querySelectorAll('.content_zone1 .slide_item');
+			    let slides = document.querySelectorAll('.content_zone1 .slide_item');
 
-			    function updateSlideWidth() {			        
+			    function updateSlideWidth() {
+			        slides = document.querySelectorAll('.content_zone1 .slide_item');
 			        slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진을 동적으로 계산
 			    }			    
 			    
 			    function showSlides1() {
 				    //let slides = document.querySelectorAll('.content_zone1 .slide_item');
 				    //let slideGroup = document.querySelector('.content_zone1 .slide_group');
-				    slideIndex1 = (slideIndex1 + 1) % slides.length;
-				    //slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진
+				    slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진
 				    let initialOffset = slideGroup1.offsetWidth / 2 - slideWidth / 2;//130; // 초기 위치를 설정
 				    slideGroup1.style.transition = 'transform 0.5s ease';
 				    slideGroup1.style.transform = 'translateX(' + (initialOffset + (-slideWidth * slideIndex1)) + 'px)';
+
+				    slideIndex1++;
+				    //console.log('slideIndex1:', slideIndex1);
+				    if (slideIndex1 >= slides.length) {
+				        slideIndex1 = 0; 
+				    }
 					}
-			    
-			    function startAutoSlide() {
-			        clearInterval(autoSlideInterval1);
-			        autoSlideInterval1 = setInterval(showSlides1, 2000);
-			    }
-
-			    function stopAutoSlide() {
-			        clearInterval(autoSlideInterval1);
-			    }
-
-
-			    updateSlideWidth();
-			    startAutoSlide();
+			    autoSlideInterval1 = setInterval(showSlides1, 2000);
 
 			    window.addEventListener('resize', () => {
 			        updateSlideWidth();
 			        showSlides1();
 			    });
+
+			    updateSlideWidth(); // 초기 로드 시 슬라이드 너비 업데이트
 
 			    // PC 클릭 이벤트 (드래그)
 			    slideGroup1.addEventListener('mousedown', (e) => {
@@ -683,7 +696,7 @@
 			            }
 
 			            slideGroup1.style.transform = 'translateX(' + (-550 + (-slideWidth * slideIndex1)) + 'px)';
-			            autoSlideInterval1 = setInterval(showSlides1, 2000); // 드래그 후 자동 슬라이드 재시작
+			            autoSlideInterval1 = setInterval(showSlides1, 3000); // 드래그 후 자동 슬라이드 재시작
 
 			            document.removeEventListener('mousemove', onMouseMove);
 			            document.removeEventListener('mouseup', onMouseUp);
@@ -695,7 +708,7 @@
 			    });
 
 			    // 모바일 터치 이벤트 (스와이프)
-			    /* slideGroup1.addEventListener('touchstart', (e) => {
+			    slideGroup1.addEventListener('touchstart', (e) => {
 			        //e.preventDefault(); // 기본 동작 방지
 			        if (Math.abs(endPoint - startPoint) > threshold) {
 			            e.preventDefault();
@@ -733,7 +746,7 @@
 
 			        document.addEventListener('touchmove', onTouchMove);
 			        document.addEventListener('touchend', onTouchEnd);
-			    }); */
+			    });
 			});
 
 			

@@ -25,7 +25,7 @@ public class MwController {
 			@RequestParam(value = "areaCode", required = false) String areaCode, // 지역코드
 			@RequestParam(value = "keyword", required = false) String keyword,
 			Model model) {
-		System.out.println("컨트롤러 실행");
+		//System.out.println("컨트롤러 실행");
 		boolean isKeyword = false;
 		// 널 처리 및 매퍼에서 빈 문자열 검색되지 않게 처리
 		if (areaCode != null && areaCode.trim().isEmpty()) {
@@ -56,7 +56,7 @@ public class MwController {
 		model.addAttribute("bestDtos", service.selectBest(areaCode));
 		model.addAttribute("mwBolgguriRegionDtos", service.regionSelectAll()); // 볼거리 리스트 지역명 출력 
 		model.addAttribute("mwBolgguriCategoryDtos", service.categorySelectAll()); // 카테고리 창에 출력할 카테고리명
-		System.out.println("========== LIST CONTROLLER RESULT ==========");
-		System.out.println("areaCode : " + areaCode + " / keyword : " + keyword);
+//		System.out.println("========== LIST CONTROLLER RESULT ==========");
+//		System.out.println("areaCode : " + areaCode + " / keyword : " + keyword);
 	}
 }

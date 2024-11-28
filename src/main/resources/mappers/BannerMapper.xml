@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BannerMapper.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="joeun.project.dao.BannerDAO">
+    <select id="getActiveBanners" resultType="BannerDto">
+        SELECT id, imageurl AS imageUrl, linkurl AS linkUrl,content
+        FROM banner_ads
+        WHERE active = 1
+    </select>
+</mapper>

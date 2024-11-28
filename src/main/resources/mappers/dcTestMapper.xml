@@ -11,4 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 
 	</select>
+	<select id="selectBanner_ads" resultType="bannerDto">
+		select * from banner_ads
+		WHERE active = 1
+	</select>
+	
 </mapper>

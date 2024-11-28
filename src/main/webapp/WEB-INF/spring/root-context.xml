@@ -7,7 +7,8 @@
 		<property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
 		<!-- <property value="jdbc:oracle:thin:@18.234.55.241:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" />	-->
 		<!-- <property value="jdbc:oracle:thin:@127.0.0.1:1521:xe" name="url" /> -->
-    <property value="jdbc:oracle:thin:@144.24.85.49:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" />
+		<property value="jdbc:oracle:thin:@127.0.0.1:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" />
+    <!-- <property value="jdbc:oracle:thin:@144.24.85.49:1521:xe?oracle.jdbc.timezoneAsRegion=false" name="url" /> -->
 		<property value="project" name="username" />
 		<property value="123456" name="password" />
 	</bean>

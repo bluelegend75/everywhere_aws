@@ -441,6 +441,7 @@ public class JsController {
 
 	    // 이메일 보낼 양식
 	    String setFrom = "qkdwnstlr98@naver.com"; // 발신자 이메일
+//	    String setFrom = "bluelegend75@naver.com"; // 발신자 이메일
 	    String toMail = email; // 수신자 이메일
 	    String title = "회원가입 인증 이메일 입니다.";
 	    String content = "인증 코드는 " + checkNum + " 입니다." +

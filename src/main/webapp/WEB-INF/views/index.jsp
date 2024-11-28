@@ -6,7 +6,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방방곡곡</title>
+<meta name="naver-site-verification" content="5d6f842aaac8250df35d9b3407e3c5af1c88f86c" /><!-- https://aws.bluelegend.net -->
+<meta name="naver-site-verification" content="1a74d1addf445d0c79b100d93505120017091df9" /><!-- https://www.bluelegend.net -->
+<meta name="naver-site-verification" content="a2cccb992db787a9703dbbb67b11cf1a53a8893a" /><!-- https://bluelegend.net -->
+<meta name="title" content="방방곡곡 - 여행 지도, 계획, 볼꺼리, 먹꺼리, 잘꺼리">
+<meta name="description" content="●여행 정보 사이트 방방곡곡 ●목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천 여행지도 방방곡곡 ●어디 갈까? 고민 끝">
+<title>여행지도 방방곡곡</title>
+<meta property="og:type" content="website"> 
+<meta property="og:title" content="어디갈까 몰라도 떠난다, 여행지도 방방곡곡">
+<meta property="og:description" content="●목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천 여행지도 방방곡곡 ●어디 갈까? 고민 끝">
+<meta property="og:image" content="https://www.bluelegend.net/resources/banner/bolgguri_sample.jpg">
+<meta property="og:url" content="https://www.bluelegend.net">
+<meta id="description" name="description" content="●목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천 여행지도 방방곡곡 ●어디 갈까? 고민 끝"/>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="어디갈까 몰라도 떠난다, 여행지도 방방곡곡">
+<meta name="twitter:description" content="●여행 정보 사이트 방방곡곡 ●목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천 여행지도 방방곡곡 ●어디 갈까? 고민 끝">
+<meta name="twitter:image" content="https://www.bluelegend.net/resources/banner/bolgguri_sample.jpg">
+<meta name="twitter:domain" content="방방곡곡">
+
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <style>
@@ -41,7 +58,7 @@ ul, li {
 }
 
 .content_zone1 {
-	margin-top: 7rem;
+	margin-top: 6rem;
 }
 
 .content_zone1 .content_zone_wrap {
@@ -95,7 +112,7 @@ ul, li {
 
 /*검색존*/
 .content_zone2 {
-	margin-top: 3rem;
+	margin-top: 2rem;
 }
 
 .content_zone2 .content_zone_wrap {
@@ -145,7 +162,7 @@ ul, li {
 
 /*이미지 슬라이드 존*/
 .content_zone3 {
-	margin-top: 3rem;
+	margin-top: 2rem;
 }
 
 .content_zone3 .content_zone_wrap {
@@ -181,7 +198,7 @@ ul, li {
 
 /* 섹션 4 */
 .content_zone4 {
-	margin-top: 3rem;
+	margin-top: 2rem;
 }
 
 .content_zone4 .content_zone_wrap {
@@ -267,7 +284,7 @@ ul, li {
 
 /* 섹션 5 */
 .content_zone5 {
-	margin-top: 3rem;
+	margin-top: 2rem;
 	margin-bottom: 100px;
 }
 
@@ -354,7 +371,7 @@ ul, li {
 
 /**/
 .content_zone6 {
-	margin-top: 50px;
+	margin-top: 2rem;/*50px;*/
 }
 
 .content_zone6 .content_zone_wrap {
@@ -593,6 +610,7 @@ ul, li {
 	padding: 10px 20px; /* li 태그의 패딩을 a 태그로 이동 */
 	transition: all 0.4s ease;
 }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -645,6 +663,7 @@ $(document).ready(function() {
         // 기본 배경 이미지로 복원
         $('.maps_bg').css('background-image', 'url(resources/img/maps.png)');
     });
+	
 });
 	
 	
@@ -749,7 +768,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item3">
 					<div class="menu_container">
-						<a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">
+						<a href="/nearMukgguri">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/food_icon.png" alt="먹거리">
 							</div>
@@ -759,7 +778,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item4">
 					<div class="menu_container">
-						<a href="javascript:void(0);"  onclick="alert('서비스 예정입니다.')">
+						<a href="/nearJalgguri">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/hotel_icon.png" alt="숙박업">
 							</div>

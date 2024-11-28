@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    , a.mapy x, a.mapx y, a.addr1,a.tel,a.BOLGGURI_ID contentid,a.c_date, a.firstimage2 firstimage
 				FROM bolgguri a
 				WHERE contenttypeid =12
-				AND (CAT2 ='A0101' 
+				AND (CAT1 ='A01' 
              OR (CAT1,CAT2,CAT3) IN (('A04','A0401', 'A04010100'), ('A04','A0401', 'A04010200'))
          )
 				AND SQRT(POWER(mapx - #{centerY}, 2) + POWER(mapy - #{centerX}, 2)) <= #{radius}

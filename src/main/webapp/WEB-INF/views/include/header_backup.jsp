@@ -5,15 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NNPW2C7X');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
-<title>여행지도 방방곡곡</title>
+<title>방방곡곡</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -163,7 +156,7 @@ ul, li {
 		right: 5px;
 	}
 
-	.banner_item_header {
+	.banner_item {
 		width: 100%; /* 부모 너비에 맞게 설정 */
 		height: auto;
 		max-width: 250px; /* 이미지 최대 너비 */
@@ -172,13 +165,13 @@ ul, li {
 		background-color: #f2f2f2;
 		display: flex;
 		align-items: center;
-		/* justify-content: center; */
+		justify-content: center;
 		font-size: 14px;
 		color: #333;
 		border: 1px solid #ddd;
 		overflow: hidden; /* 이미지를 박스 안에 맞추기 위해 오버플로우 숨김 */
 	}
-	.banner_item_header img {
+	.banner_item img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* 이미지 비율 유지하면서 박스에 맞춤 */
@@ -193,52 +186,28 @@ ul, li {
         height: auto;
         flex-direction: row;
         justify-content: center;
-        padding: 0px 0;
+        padding: 10px 0;
         background-color: #fff; /* 배경색 추가 */
         border-top: 1px solid #ddd; /* 상단 경계선 추가 */
     }
 
-    .banner_item_header {
+    .banner_item {
         width: 30%;/*auto; *//* 배너가 고정 너비를 가지지 않도록 */
-        height:280px;/*calc(200px*30% * 1.5); 200px;*/
+        height:300px;
         margin: 0 5px; /* 배너 간격 설정 */
-        align-items: center;
-    }
-    .left_banner {
-    	margin-top: 7rem;
     }
 
     .left_banner, .right_banner {
         position: static;
-    }
-    .banner_item_header span { 
-    	word-wrap: break-word; 
-    	white-space: normal; 
-    	overflow-wrap: break-word; 
-    	overflow: hidden; 
-    	text-overflow: ellipsis;
-    }
-    .content_zone {
-    	margin-top: 1rem;
-    }
-}
-
-@media (max-width: 840px) {
-    .banner_item_header {
-        width: 30%;
-        height:calc(30vw * 0.93);
     }
 }
 @media (max-width: 768px) {
     .side_banner {
         display: none;
     }
-    .content_zone1 {
-    	margin-top: 6rem;
-    }
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function toggleSitemap() {
     const sitemap = document.getElementById('sitemap');
@@ -274,10 +243,7 @@ $(document).ready(function() {
 
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNPW2C7X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+
 	<header class="header_gnb">
 		<div class="header_wrap">
 			<div class="header_container">
@@ -288,7 +254,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<div class="logo_img">
 					<a href="/"> 
 						<%-- <img src="${pageContext.request.contextPath}/resources/img/header_logo1.png" alt="logo"> --%>
-						<img src="${pageContext.request.contextPath}/resources/img/earth_white_70w.gif">
+						<img src="${pageContext.request.contextPath}/resources/img/earth_white.gif">
 						<span class="jump">방</span>
 						<span class="jump">방</span>
 						<span class="jump">곡</span>
@@ -307,25 +273,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<%@ include file="/WEB-INF/views/include/sitemap.jsp"%>
 <!-- 왼쪽 배너 광고 -->
 <!-- 	<div class="side_banner left_banner">
-		<div class="banner_item_header">광고문의 <br>010-67057812</div>
-		<div class="banner_item_header">광고 2</div>
-		<div class="banner_item_header">광고 3</div>
-		<div class="banner_item_header">광고 4</div>
-		<div class="banner_item_header">광고 5</div>
+		<div class="banner_item">광고문의 <br>010-67057812</div>
+		<div class="banner_item">광고 2</div>
+		<div class="banner_item">광고 3</div>
+		<div class="banner_item">광고 4</div>
+		<div class="banner_item">광고 5</div>
 	</div> -->
 
 	<!-- 오른쪽 배너 광고 -->
 <!-- 	<div class="side_banner right_banner">
-		<div class="banner_item_header">광고 6</div>
-		<div class="banner_item_header">광고 7</div>
-		<div class="banner_item_header">광고 8</div>
-		<div class="banner_item_header">광고 9</div>
-		<div class="banner_item_header">광고 10</div>
+		<div class="banner_item">광고 6</div>
+		<div class="banner_item">광고 7</div>
+		<div class="banner_item">광고 8</div>
+		<div class="banner_item">광고 9</div>
+		<div class="banner_item">광고 10</div>
 	</div> -->
 	
 	<div class="side_banner left_banner">
 	    <c:forEach var="leftBanners" items="${leftBanners}">
-	        <div class="banner_item_header">
+	        <div class="banner_item">
 	            <a href="${leftBanners.linkUrl}" target="_blank">
 	                <c:choose>
                     <c:when test="${not empty leftBanners.imageUrl}">
@@ -342,7 +308,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	
 	<div class="side_banner right_banner">
 	    <c:forEach var="rightBanners" items="${rightBanners}">
-	        <div class="banner_item_header">
+	        <div class="banner_item">
 	            <a href="${rightBanners.linkUrl}" target="_blank">
 	                <c:choose>
                     <c:when test="${not empty rightBanners.imageUrl}">

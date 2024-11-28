@@ -56,11 +56,11 @@ public class dcController {
 		mav.addObject("imageData",dto);
 		return mav;
 	}
-	@RequestMapping(value="/dctest", method = RequestMethod.GET)
-	public String dctest(Model model) {
-
-		return "/dc/testdc";
-	}
+//	@RequestMapping(value="/dctest", method = RequestMethod.GET)
+//	public String dctest(Model model) {
+//
+//		return "/dc/testdc";
+//	}
 	
 	@RequestMapping(value="/personInfoPolicy", method = RequestMethod.GET)
 	public String personInfoPolicy(Model model) {
@@ -72,4 +72,16 @@ public class dcController {
 
 		return "/dc/personInfoPolicyApp";
 	}
+	@RequestMapping(value="/googleTester", method = RequestMethod.GET)
+	public String googleTester(Model model) {
+
+		return "/ads/googleTester";
+	}
+	@RequestMapping(value="/googleTester2", method = RequestMethod.GET)
+	public String googleTester2(Model model) {
+
+		return "/ads/googleTester2";
+	}
+
+
 }

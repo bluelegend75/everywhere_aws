@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 키워드</title>
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
@@ -166,6 +167,38 @@ input[type="checkbox"] {
 		$('#zoomOut').click(zoomOut);
 		$('#myplace').click(getUserLocation);
 	});
+	
+	window.addEventListener('pageshow', function (event) {
+	    const loadingIndicator = document.getElementById('loading-indicator');
+	    if (loadingIndicator && event.persisted) { // 페이지가 캐시에서 로드되었는지 확인
+	        loadingIndicator.style.display = 'none';
+	    }
+	});
+	
+	document.addEventListener('DOMContentLoaded', function () {
+	    const links = document.querySelectorAll('a'); // 모든 링크에 적용, 필요 시 필터링
+
+	    links.forEach(link => {
+	        link.addEventListener('click', function (event) {
+	            const loadingIndicator = document.getElementById('loading-indicator');
+	            
+	            // 로딩 메시지 표시
+	            if (loadingIndicator) {
+	                loadingIndicator.style.display = 'block';
+	            }
+	            
+	            // 링크 연결 지연을 방지하기 위해 timeout 사용하지 않음
+	        });
+	    });
+
+	});
+	function showLoading() {
+	    const loadingIndicator = document.getElementById('loading-indicator');
+	    if (loadingIndicator) {
+	        loadingIndicator.style.display = 'block';
+	    }
+	}
+	
 	function getUserLocation() {
 		origin_lat=$("#startXlat").val();
 		origin_lng=$("#startYlng").val();
@@ -260,7 +293,8 @@ input[type="checkbox"] {
 		//console.log("cat1:", cat1,contentid);
 		if (cat1 == '자연' || cat1 =='인문(문화/예술/역사)'|| cat1 =='레포츠') {
 			var iwContent = '<a href="/detail_view?bolgguri_id=' + contentid+'" id="' + contentid
-					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')">'
+					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')" '
+					+ 'onclick="showLoading()">'
 					+ '<span class="info-cat1">' + title + '</span></a>';
 		} else {
 			var iwContent = '<a href="https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=' + area +' '+ title+'" id="' + contentid
@@ -489,7 +523,7 @@ input[type="checkbox"] {
 	<!-- <a href="/"> <span class="material-symbols-outlined">home</span></a> -->
 	<h1>키워드로 주변 검색</h1>
 	<div class="coordinate-container">
-		키워드 <input type="text" id="keyword" placeholder='캠핑 등 키워드'> &nbsp&nbsp&nbsp
+		키워드 <input type="text" id="keyword" placeholder='캠핑,시장 등'> &nbsp&nbsp&nbsp
 		검색 반경 <input type="text" id="radius" value="20"> km
 		<div class="invisible">
 			위도(lat) <input type="text" id="startXlat" value="37.596690572396454"> 
@@ -505,6 +539,10 @@ input[type="checkbox"] {
 		<button id="delMarker" class="button-coordinate">마커 지우기</button>
 		<!-- <button id="zoomOut" class="button-coordinate">축소</button>
 		<button id="zoomIn" class="button-coordinate">확대</button> -->
+	</div>
+	<div id="loading-indicator" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <div class="spinner"></div>
+   	 검색 중..잠시만 기다려 주세요...
 	</div>
 	<!-- </div> -->
 	<%-- <div class="checkbox-container">

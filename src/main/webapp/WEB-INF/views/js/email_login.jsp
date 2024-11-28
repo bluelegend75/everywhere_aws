@@ -110,6 +110,7 @@ body {
 	margin-top: 7rem;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 let isUserIdChecked = false;
 let verificationCode = null; // 인증 코드 저장 변수
@@ -126,7 +127,7 @@ function validatePassword() {
     if (password.length < 8) {
         feedback.textContent = '비밀번호는 최소 8자 이상이어야 합니다.';
         return false;
-    } else if (!regexUpper.test(password)) {
+    } /* else if (!regexUpper.test(password)) {
         feedback.textContent = '비밀번호는 대문자를 포함해야 합니다.';
         return false;
     } else if (!regexLower.test(password)) {
@@ -138,7 +139,7 @@ function validatePassword() {
     } else if (!regexSpecial.test(password)) {
         feedback.textContent = '비밀번호는 특수 문자를 포함해야 합니다.';
         return false;
-    } else {
+    }  */else {
         feedback.textContent = ''; 
         return true;
     }
@@ -282,12 +283,14 @@ function checkDuplicateUserId() {
         });
 }
 
-function togglePasswordVisibility() {
+ function togglePasswordVisibility() {
+		//console.log('togglePassword');
     const passwordField = document.querySelector('input[name="user_pw"]');
+    //console.log('passwordField',document.querySelector('input[name="user_pw"]'));
     const confirmPasswordField = document.querySelector('input[name="user_pw2"]');
     const toggleButton = document.getElementById('togglePassword');
     
-    if (passwordField.type === "password") {
+    if (passwordField.type == "password") {
         passwordField.type = "text";
         confirmPasswordField.type = "text";
         toggleButton.textContent = "비밀번호 숨기기";
@@ -296,7 +299,7 @@ function togglePasswordVisibility() {
         confirmPasswordField.type = "password";
         toggleButton.textContent = "비밀번호 표시";
     }
-}
+} 
 
 function updateEmail() {
     const emailDomain = document.getElementById('email_domain').value;
@@ -319,6 +322,12 @@ function updateEmail() {
 //이메일 인증 요청 함수
 function requestEmailAuth() {
     const emailInput = document.getElementById('email').value;
+ 		// 이메일 입력값 유효성 검사 
+ 		if (!emailInput || !emailInput.includes('@')) { 
+ 			alert('유효한 이메일 주소를 입력하세요.'); 
+ 			return; 
+ 		}
+    
     fetch('/sendVerificationEmail', {
         method: 'POST',
         headers: {
@@ -336,6 +345,7 @@ function requestEmailAuth() {
 
         authCodeInput.disabled = false; // 입력 필드 활성화
         verifyAuthCodeBtn.disabled = false; // 인증 확인 버튼 활성화
+        alert('인증번호를 발송하였습니다.');
     })
 }
 
@@ -383,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
     verifyAuthCodeBtn.disabled = true;
 
     // 아이디 중복 확인 버튼 이벤트 리스너 추가
-    const checkIdBtn = document.getElementById('checkIdBtn');
+    /* const checkIdBtn = document.getElementById('checkIdBtn');
     if (checkIdBtn) {
         checkIdBtn.addEventListener('click', function() {
             if (validateUserId()) {
@@ -392,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.error('checkIdBtn 요소를 찾을 수 없습니다.');
-    }
+    } */
 });
 </script>
 
@@ -410,8 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					<div id="nickname-feedback" class="nickname-feedback"></div>
 					이메일
 					<div class="email-container">
-						<input type="text" id="email" name="email" required
-							placeholder="사용자 입력 부분"> <select id="email_domain"
+						<select id="email_domain"
 							onchange="updateEmail()">
 							<option value="">이메일 도메인 선택</option>
 							<option value="@gmail.com">gmail.com</option>
@@ -419,6 +428,8 @@ document.addEventListener('DOMContentLoaded', function() {
 							<option value="@naver.com">naver.com</option>
 							<option value="custom">직접 입력</option>
 						</select>
+						<input type="text" id="email" name="email" required
+							placeholder="사용자 입력 부분"> 
 						<input type="button" value="인증하기" class="btn btn-primary"id="verifyEmailBtn" >
 						<input type="hidden" id="email_domain_hidden" name="email_domain_hidden">
 					</div>
@@ -428,18 +439,19 @@ document.addEventListener('DOMContentLoaded', function() {
 					아이디 <input type="text" id="user_id" name="user_id" required><br>
 					<button type="button" onclick="if (validateUserId()) { checkDuplicateUserId() }">중복확인</button><br>
 					<div id="userId-feedback" class="userId-feedback"></div>
-					비밀번호 <input type="password" name="user_pw"placeholder="최소 8자, 대소문자, 숫자, 특수문자 포함" required><br>
+					비밀번호 <input type="password" name="user_pw" placeholder="최소 8자, 대소문자, 숫자, 특수문자 포함" required><br>
 					<div id="password-feedback" class="password-feedback"></div>
-					비밀번호 확인 <input type="password" name="user_pw2"placeholder="비밀번호 확인" required><br>
+					비밀번호 확인 <input type="password" name="user_pw2" placeholder="비밀번호 확인" required><br>
 					<div id="confirm-password-feedback" class="password-feedback"></div>
-					<span id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()">비밀번호 표시</span><br>
+					<!-- <span id="togglePassword" class="toggle-password" onclick="togglePasswordVisibility()">비밀번호 표시</span><br> -->
+					<span id="togglePassword" class="toggle-password">비밀번호 표시</span><br>
 					휴대전화번호 <input type="text" name="tel" placeholder="010-1234-5678"required><br>
 					<div id="phone-feedback" class="phone-feedback"></div>
 					성별<br> <select id="gender" name="gender">
 						<option value="m">남</option>
 						<option value="f">여</option>
 						</select><br>
-					생년월일 <input type="text" name="birthday"	placeholder="20000101" required><br>
+					생년월일 <input type="text" name="birthday"	placeholder="20000101" ><br>
 					<div id="birthday-feedback" class="birthday-feedback"></div>
 					<input type="hidden" name="authority" value="0"><br>
 					<button type="submit">회원 가입</button>
@@ -475,6 +487,23 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('인증 코드 확인 실패:', error);
         });
     }
+    /* document.addEventListener("DOMContentLoaded", () => {
+        const passwordField = document.getElementById('user_pw');
+        const confirmPasswordField = document.getElementById('user_pw2');
+        const toggleButton = document.getElementById('togglePassword');
+
+        toggleButton.addEventListener("click", () => {
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                confirmPasswordField.type = "text";
+                toggleButton.textContent = "비밀번호 숨기기";
+            } else {
+                passwordField.type = "password";
+                confirmPasswordField.type = "password";
+                toggleButton.textContent = "비밀번호 표시";
+            }
+        });
+    }); */
     </script>
 	
 </body>
