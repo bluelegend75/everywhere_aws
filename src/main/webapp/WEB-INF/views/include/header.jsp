@@ -1,3 +1,4 @@
+<div>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,7 +14,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NNPW2C7X');</script>
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
-<title>여행지도 방방곡곡</title>
+<!-- <title>여행지도 방방곡곡</title> -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
@@ -74,7 +75,7 @@ ul, li {
 	max-width: 57rem;
 	height: 3.5rem;
 	padding: 10px 0;
-	display: flex;
+	display: block;
 	justify-content: center;
 	align-items: center;
 	position: fixed;
@@ -184,6 +185,22 @@ ul, li {
     object-fit: cover; /* 이미지 비율 유지하면서 박스에 맞춤 */
     display: block;
 }
+/* .visitor_info {
+    display: flex;
+    flex-direction: row;  /* 세로로 나열되도록 설정 */
+    margin-top: 0px;  /* 필요에 따라 간격 추가 */
+    justify-content: right;
+   /*  justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px; */
+}
+
+.visitor_info span {
+    margin-right: 20px;
+    font-size: 16px;
+} */
 @media (max-width: 1300px) {
     .side_banner {
         position: fixed;
@@ -251,6 +268,8 @@ function closeSitemap() {
 }
 
 $(document).ready(function() {
+	let totalCnt = 0;//${totalCnt};
+	console.log('totalCnt',totalCnt);
 	//console.log('banners:',${banners});
 	
     function randomJump() {
@@ -295,13 +314,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<span class="jump">곡</span>
 					</a>
 				</div>
-
 				<div class="login">
-					<a href=""> <span class="material-symbols-outlined">home</span>
-					</a>
-				</div>
-			</div>
+					<a href=""> <span class="material-symbols-outlined">home</span></a>					
+				</div>				
+			</div>			
+	    <!-- 추가된 부분: indexCnt와 nearBolgguriCnt 출력 -->
+<%-- 			<div class="visitor_info">
+            <span>방문자 수: 
+                <fmt:formatNumber value="${indexCnt}" type="number" pattern="#,###" />
+            </span>
+            <span>주변볼거리 방문: 
+                <fmt:formatNumber value="${nearBolgguriCnt}" type="number" pattern="#,###" />
+            </span>
+        </div> --%>
 		</div>
+
 	</header>
 	
 	<%@ include file="/WEB-INF/views/include/sitemap.jsp"%>
@@ -322,7 +349,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<div class="banner_item_header">광고 9</div>
 		<div class="banner_item_header">광고 10</div>
 	</div> -->
-	
+
 	<div class="side_banner left_banner">
 	    <c:forEach var="leftBanners" items="${leftBanners}">
 	        <div class="banner_item_header">
@@ -359,3 +386,4 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	
 </body>
 </html>
+</div>

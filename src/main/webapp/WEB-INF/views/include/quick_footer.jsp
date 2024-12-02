@@ -1,3 +1,4 @@
+<div>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -6,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방방곡곡</title>
+<!-- <title>방방곡곡</title> -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <style>
@@ -91,7 +92,7 @@ ul, li {
 		<div class="footer_wrap">
 			<div class="footer_item footer_item2">
 				<div class="footer_container">
-					<a href="/nearBolgguri">
+					<a href="/nearBolgguriApp">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> near_me </span>
 						</div>
@@ -101,7 +102,7 @@ ul, li {
 			</div>
 						<div class="footer_item footer_item2">
 				<div class="footer_container">
-					<a href="/nearMukgguri">
+					<a href="/nearMukgguriApp">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> Restaurant </span>
 						</div>
@@ -111,7 +112,7 @@ ul, li {
 			</div>
 						<div class="footer_item footer_item2">
 				<div class="footer_container">
-					<a href="/nearJalgguri">
+					<a href="/nearJalgguriApp">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> Hotel </span>
 						</div>
@@ -123,7 +124,7 @@ ul, li {
 			</div>
 						<div class="footer_item footer_item4">
 				<div class="footer_container">
-					<a href="/nearKeyword">
+					<a href="/nearKeywordApp">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> search </span>
 						</div>
@@ -143,7 +144,7 @@ ul, li {
 
 						<div class="footer_item footer_item4">
 				<div class="footer_container">
-					<a href="/kakao_car">
+					<a href="/kakao_carApp">
 						<div class="footer_icon">
 							<span class="material-symbols-outlined"> directions_car </span>
 						</div>
@@ -190,3 +191,4 @@ ul, li {
 
 </body>
 </html>
+</div>

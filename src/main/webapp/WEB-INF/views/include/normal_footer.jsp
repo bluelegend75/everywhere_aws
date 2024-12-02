@@ -1,3 +1,4 @@
+<div>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -6,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방방곡곡</title>
+<!-- <title>방방곡곡</title> -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 <link
@@ -72,6 +73,7 @@ ul, li {
 .footer_bottom {margin-bottom: 20px; width:100%; max-width: 600px; margin-left:10px;}
 
 .footer_bottom p {font-size : 14px;}
+.footer_bottom button { color : #007bff; }
 
 .style_cont {text-align : right;
     position: absolute;
@@ -117,14 +119,20 @@ ul, li {
 						</ul>
 					</div>
 				</div>
-				<div class="footer_mid">
+<!-- 				<div class="footer_mid">
 					<h1>PROJECT MEMBER</h1>
 					<p><span>팀원 : </span><span> 고형석, 류영훈, 방준식, 이민웅, 정성훈, 신동철</span></p>
-				</div>
+				</div> -->
 				<div class="footer_bottom">
 					<p>목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천, 여행지도 방방곡곡 <br>▶어디 깔까? 고민 될 때~, 여행 계획 세울 때~, 어디 갈지 모를 때~, 어딘가 떠나고 싶을 때~</p>
 					<br>
 					<p>※ 문의 : bluelegend75@gmail.com</p>
+					<br>
+					<a href="https://play.google.com/store/apps/details?id=net.bluelegend.tourfriend" target="_blank">
+						<button>방방곡곡의 여행지도 검색 부분이 무료 앱으로 출시되었습니다.<br>
+								<strong>방방곡곡 여행친구 앱 설치 </strong>					
+						</button>
+					</a>
 				</div>
 				<div class="style_cont">
 					<p>TEAM</p>
@@ -137,3 +145,4 @@ ul, li {
 
 </body>
 </html>
+</div>

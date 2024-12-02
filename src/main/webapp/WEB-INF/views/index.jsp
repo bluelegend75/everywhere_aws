@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta name="naver-site-verification" content="5d6f842aaac8250df35d9b3407e3c5af1c88f86c" /><!-- https://aws.bluelegend.net -->
 <meta name="naver-site-verification" content="1a74d1addf445d0c79b100d93505120017091df9" /><!-- https://www.bluelegend.net -->
 <meta name="naver-site-verification" content="a2cccb992db787a9703dbbb67b11cf1a53a8893a" /><!-- https://bluelegend.net -->
@@ -120,6 +121,7 @@ ul, li {
 	max-width: 57rem;
 	display: flex;
 	justify-content: center;
+	/* flex-direction: column; */
 }
 
 .content_zone2 .content_zone_wrap .search_box {
@@ -221,7 +223,7 @@ ul, li {
 	margin-bottom: 20px;
 }
 
-.content_zone4 .content_zone_wrap .image_slide_container .image_slide_title h1
+.content_zone4 .content_zone_wrap .image_slide_container .image_slide_title h2
 	{
 	color: #007bff;
 	font-weight: 500;
@@ -264,7 +266,7 @@ ul, li {
 	height: 200px;
 }
 
-.content_zone4 .slide_item h1 {
+.content_zone4 .slide_item h2 {
 	font-size: 20px;
 	color: black;
 	font-weight: 500;
@@ -285,7 +287,11 @@ ul, li {
 /* 섹션 5 */
 .content_zone5 {
 	margin-top: 2rem;
-	margin-bottom: 100px;
+	margin-bottom: 10px;
+}
+.content_zone6 {
+	margin-top: 0rem;
+	margin-bottom: 0px;
 }
 
 .content_zone5 .content_zone_wrap {
@@ -308,7 +314,7 @@ ul, li {
 	margin-bottom: 20px;
 }
 
-.content_zone5 .content_zone_wrap .image_slide_container .image_slide_title h1
+.content_zone5 .content_zone_wrap .image_slide_container .image_slide_title h2
 	{
 	color: #007bff;
 	font-weight: 500;
@@ -351,7 +357,7 @@ ul, li {
 	height: 200px;
 }
 
-.content_zone5 .slide_item h1 {
+.content_zone5 .slide_item h2 {
 	font-size: 20px;
 	color: black;
 	font-weight: 500;
@@ -610,7 +616,22 @@ ul, li {
 	padding: 10px 20px; /* li 태그의 패딩을 a 태그로 이동 */
 	transition: all 0.4s ease;
 }
+.visitor_info {
+    display: flex;
+    /* flex-direction: row; */  /* 세로로 나열되도록 설정 */
+    margin-top: 0px;  /* 필요에 따라 간격 추가 */
+    justify-content: right;
+   /*  justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px; */
+}
 
+.visitor_info span {
+    margin-right: 20px;
+    font-size: 16px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -768,7 +789,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item3">
 					<div class="menu_container">
-						<a href="/nearMukgguri">
+						<a href="/nearMukgguriApp">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/food_icon.png" alt="먹거리">
 							</div>
@@ -778,7 +799,7 @@ $(document).ready(function() {
 				</div>
 				<div class="menu_item menu_item4">
 					<div class="menu_container">
-						<a href="/nearJalgguri">
+						<a href="/nearJalgguriApp">
 							<div class="menu_icon">
 								<img src="${pageContext.request.contextPath}/resources/img/hotel_icon.png" alt="숙박업">
 							</div>
@@ -830,8 +851,8 @@ $(document).ready(function() {
 		</div>
 	</section>
 
-	<section class="content_zone content_zone2">
-		<div class="content_zone_wrap">
+	<section class="content_zone content_zone2">	
+		<div class="content_zone_wrap">		
 			<div class="search_container">
 				<form action="/mw/bolgguriMain" method="GET" class="search_box">
 					<input type="text" name="keyword" placeholder="키워드를 입력해주세요.">
@@ -862,7 +883,7 @@ $(document).ready(function() {
 
 					</div>
 					<div class="maps_menu">
-						<!-- <h1>가고 싶은 여행지 선택</h1> -->
+						<!-- <h2>가고 싶은 여행지 선택</h2> -->
 						<c:forEach var="mwBolgguriRegionDto" items="${mwBolgguriRegionDtos }" varStatus="status">
 							<c:if test="${status.first || (status.index % 3) == 0}">
 						        <ul>
@@ -900,7 +921,7 @@ $(document).ready(function() {
 					</a>
 				</div>
 				<div class="slide">
-					<a href="/nearBolgguri"> <img src="${pageContext.request.contextPath}/resources/img/robot_banner4.png" alt="Slide 3">
+					<a href="/nearBolgguri"> <img src="${pageContext.request.contextPath}/resources/img/robot_banner5.png" alt="Slide 3">
 					</a>
 				</div>
 				<%-- <div class="slide">
@@ -916,7 +937,7 @@ $(document).ready(function() {
 
 			<div class="image_slide_container">
 				<div class="image_slide_title">
-					<h1>볼거리 TOP 10</h1>
+					<h2>볼거리 TOP 10</h2>
 				</div>
 				<div class="slide_group">
 					<c:forEach var="mwBolgguriDto" items="${mwBolgguriDtos }" varStatus="index">
@@ -927,7 +948,7 @@ $(document).ready(function() {
 									<img src="${mwBolgguriDto.firstImage2}" alt="Item ${index.index + 1 }">
 								</div>
 								<span>${mwBolgguriDto.catTitle}</span>
-								<h1>${mwBolgguriDto.title }</h1>
+								<h2>${mwBolgguriDto.title }</h2>
 								<p>상품관련한 상세내용이 해당란에 입력됩니다. 상품관련한 상세내용이 해당란에 입력됩니다.</p>
 							</a>
 						</div>
@@ -943,7 +964,7 @@ $(document).ready(function() {
 
 			<div class="image_slide_container">
 				<div class="image_slide_title">
-					<h1>즐길거리 TOP 10</h1>
+					<h2>즐길거리 TOP 10</h2>
 				</div>
 				<div class="slide_group">
 					<c:forEach var="mwBolgguriDto2" items="${mwBolgguriDtos2 }" varStatus="index">
@@ -954,7 +975,7 @@ $(document).ready(function() {
 									<img src="${mwBolgguriDto2.firstImage2}" alt="Item ${index.index + 1 }">
 								</div>
 								<span>${mwBolgguriDto2.catTitle}</span>
-								<h1>${mwBolgguriDto2.title }</h1>
+								<h2>${mwBolgguriDto2.title }</h2>
 								<p>상품관련한 상세내용이 해당란에 입력됩니다. 상품관련한 상세내용이 해당란에 입력됩니다.</p>
 							</a>
 						</div>
@@ -964,7 +985,18 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</section>
-	
+	<section class="content_zone content_zone6">
+		<div class="content_zone_wrap">
+			<div class="visitor_info">
+			  <span>방문자 수: 
+			      <fmt:formatNumber value="${indexCnt}" type="number" pattern="#,###" />
+			  </span>
+			  <span>주변볼거리 방문: 
+			      <fmt:formatNumber value="${nearBolgguriCnt}" type="number" pattern="#,###" />
+			  </span>
+			</div>
+		</div>
+	</section>
 	<%@ include file="/WEB-INF/views/include/normal_footer.jsp"%>
 	
 	<%@ include file="/WEB-INF/views/include/sitemap.jsp"%>

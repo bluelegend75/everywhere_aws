@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="joeun.project.dao.TestDao">
+<mapper namespace="joeun.project.dao.BannerDAO">
 	<select id="selectTest" resultType="testDto">
 		select addr1,addr2 from bolgguri
 		where
@@ -15,5 +15,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from banner_ads
 		WHERE active = 1
 	</select>
+	<select id="getVisitorCount" parameterType="java.time.LocalDate" resultType="VistorCntDto">
+        SELECT sum(index_cnt) index_cnt,sum(nearbolgguri_cnt) nearbolgguri_cnt
+        FROM visitor_count
+   </select>
+
+   <!-- 방문자 수 증가 (방문 날짜가 없으면 새로 추가, 있으면 업데이트) -->
+   <insert id="incrementVisitorCount" parameterType="java.time.LocalDate">
+			MERGE INTO visitor_count vc
+			USING (SELECT TO_DATE(#{visitDate}, 'YYYY-MM-DD') AS visit_date FROM dual) input
+			ON (vc.visit_date = input.visit_date)
+			WHEN MATCHED THEN
+			    UPDATE SET vc.index_cnt = vc.index_cnt + 1
+			WHEN NOT MATCHED THEN
+			    INSERT (id, visit_date, index_cnt) VALUES (visitor_count_seq.nextval, input.visit_date, 1) 
+   </insert>
+   <insert id="incrementNearBolgguriCnt" parameterType="java.time.LocalDate">
+			MERGE INTO visitor_count vc
+			USING (SELECT TO_DATE(#{visitDate}, 'YYYY-MM-DD') AS visit_date FROM dual) input
+			ON (vc.visit_date = input.visit_date)
+			WHEN MATCHED THEN
+			    UPDATE SET vc.nearbolgguri_cnt = vc.nearbolgguri_cnt + 1
+			WHEN NOT MATCHED THEN
+			    INSERT (id, visit_date, nearbolgguri_cnt) VALUES (visitor_count_seq.nextval, input.visit_date, 1)
+   </insert>
 	
 </mapper>

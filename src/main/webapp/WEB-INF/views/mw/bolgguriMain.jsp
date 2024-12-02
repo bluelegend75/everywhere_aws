@@ -783,14 +783,14 @@ input[type="checkbox"] {
 		// 검색 해서 페이지 진입 시 키워드 값 변수에 대입
 		if($('.list_search_item_keyword').html().trim() !== ''){
 			listKeyword = $('.list_userSearch_keyword').text();
-			console.log('사용자 입력 키워드 : ', listKeyword);
+			//console.log('사용자 입력 키워드 : ', listKeyword);
 		}else{
 			console.log('사용자 입력 키워드 : null');
 		}
 		
 		// 검색해서 페이지 진입 시 화면 밑으로 스크롤
 		if($('#isKeyword').val() == 'true'){
-			console.log('검색 스크롤');
+			//console.log('검색 스크롤');
 			// 페이지가 로드된 후 1000px 아래로 부드럽게 스크롤
 		    $('html, body').animate({ scrollTop: 1200 }, 500); // 500ms 동안 애니메이션
     	}
@@ -798,7 +798,7 @@ input[type="checkbox"] {
 	   	// 리스트 검색 선택
 	   	$(".searchType_list").click(function(){
 	   		page = 1;
-	   		console.log('리스트 검색');
+	   		//console.log('리스트 검색');
 	   		// 리스트, 지도 검색 버튼 css 효과
 	   		$(".list_search_container").addClass('selected');
 	   		$(".searchType_list").addClass('selected');
@@ -811,7 +811,7 @@ input[type="checkbox"] {
 	   	});
 	   	// 지도 검색 선택
 		$(".searchType_map").click(function(){
-	   		console.log('지도 검색');
+	   		//console.log('지도 검색');
 	  		$(".map_search_container").addClass('selected');
 	  		$(".searchType_map").addClass('selected');
 	  		$(".list_search_container").removeClass('selected');
@@ -876,7 +876,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 볼거리 리스트 지역 클릭
 		$(".list_area_btn").click(function(){
-			console.log('리스트 검색 지역 버튼');
+			//console.log('리스트 검색 지역 버튼');
 			isClickList = 'select';
 			page = 1;
 			hasMoreData = true;
@@ -895,7 +895,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 볼거리 리스트 전체 클릭
 		$(".list_areaAll_btn").click(function(){
-			console.log('리스트 검색 전체 버튼')
+			//console.log('리스트 검색 전체 버튼')
 			isClickList = 'select';
 			page = 1;
 			hasMoreData = true;
@@ -929,7 +929,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 카테고리 선택
 		$(".list_category_btn").click(function(){
-			console.log('리스트 검색 카테고리 버튼');
+			//console.log('리스트 검색 카테고리 버튼');
 			isClickList = 'select';
 			page = 1;
 			hasMoreData = true;
@@ -948,7 +948,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 유저가 선택한 카테고리 X 버튼 클릭 시 실행
 		$(document).on('click', '.list_userSelect_category_item', function(){
-			console.log('카테고리 X 버튼');
+			//console.log('카테고리 X 버튼');
 			isClickList = 'select';
 			page = 1;
 			hasMoreData = true;
@@ -962,7 +962,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 전체 해제 버튼 클릭
 		$(document).on('click', '.list_resetButton', function(){
-			console.log('리셋 버튼 클릭');
+			//console.log('리셋 버튼 클릭');
 		    isClickLIst = 'reset';
 		    page = 1;
 		    listCat1 = [];
@@ -977,7 +977,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 순서 정렬 버튼 클릭
 		$(".list_search_filter_btn").click(function(){
-			console.log('정렬 버튼');
+			//console.log('정렬 버튼');
 			isClickList = 'select';
 			page = 1;
 			hasMoreData = true;
@@ -1040,7 +1040,7 @@ input[type="checkbox"] {
 	 	// 전체 슬라이드 복제
 	    bestContainer.append(bestContainer.html()); // 모든 항목을 복사하여 한 번 더 추가
 	    function autoScroll() {
-	    	console.log('인기 여행지 TOP 3 자동 스크롤 실행');
+	    	//console.log('인기 여행지 TOP 3 자동 스크롤 실행');
 	    	bestContainer.animate({
 	            scrollLeft: '+=' + itemWidth
 	        }, 1000, function() {
@@ -1063,8 +1063,8 @@ input[type="checkbox"] {
 					areaCode: listAreaCode
 				},
 				success: function(data){
-					console.log("AJAX bolgguriBest 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
-					console.log('listAreaCode : ', listAreaCode);
+					//console.log("AJAX bolgguriBest 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
+					//console.log('listAreaCode : ', listAreaCode);
 					if(listAreaCode != null && listAreaCode){
 						var title = listAreaTitle;
 						$(".list_best_header_area").text(title);
@@ -1127,7 +1127,7 @@ input[type="checkbox"] {
 					keyword: listKeyword
 				},
 				success: function(data){
-					console.log('count : ', data)
+					//console.log('count : ', data)
 					var text = data + '개';
 					$('.list_search_item_count').text(text);
 				}
@@ -1148,13 +1148,13 @@ input[type="checkbox"] {
 					keyword: listKeyword
 				},
 				success: function(data){
-					console.log("AJAX selectSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
-					console.log('areaCode : ', listAreaCode);
-					console.log('areaTitle', listAreaTitle);
-					console.log('cat1 : ', listCat1);
-					console.log('filterNo : ', listFilterNo);
-					console.log('page : ', page);
-					console.log('keyword : ', listKeyword);
+					//console.log("AJAX selectSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
+					//console.log('areaCode : ', listAreaCode);
+					//console.log('areaTitle', listAreaTitle);
+					//console.log('cat1 : ', listCat1);
+					//console.log('filterNo : ', listFilterNo);
+					//console.log('page : ', page);
+					//console.log('keyword : ', listKeyword);
 					if (data.length < 20 && isScroll) { 
 		                hasMoreData = false; // 추가 요청 방지
 		            } else if (!isScroll) {
@@ -1337,7 +1337,7 @@ input[type="checkbox"] {
 		
 		// 지도 검색 볼거리 리스트 지역 클릭
 		$(".map_area_btn").click(function(){
-			console.log('지도 검색 지역 버튼');
+			//console.log('지도 검색 지역 버튼');
 			isClickMap = 'select';
 			$(this).find("input[type='radio']").prop("checked", true);
 			$(".map_area_btn").find("div>img").removeClass("selected");
@@ -1353,7 +1353,7 @@ input[type="checkbox"] {
 		
 		// 지도 검색 볼거리 리스트 전체 클릭
 		$(".map_areaAll_btn").click(function(){
-			console.log('리스트 검색 전체 버튼')
+			//console.log('리스트 검색 전체 버튼')
 			isClickMap = 'select';
 			$(".map_area_btn").find("input[type='radio']").prop("checked", false);
 			$(".map_area_btn").find("div>img").removeClass("selected");
@@ -1377,7 +1377,7 @@ input[type="checkbox"] {
 		
 		// 지도 검색 카테고리 선택
 		$(".map_category_btn").click(function(){
-			console.log('지도 검색 카테고리 버튼');
+			//console.log('지도 검색 카테고리 버튼');
 			isClickMap = 'select';
 			// 현재 클릭된 체크박스
 			var checkbox = $(this).find("input[type='checkbox']");
@@ -1394,7 +1394,7 @@ input[type="checkbox"] {
 		
 		// 리스트 검색 유저가 선택한 카테고리 X 버튼 클릭 시 실행
 		$(document).on('click', '.map_userSelect_category_item', function(){
-			console.log('카테고리 X 버튼');
+			//console.log('카테고리 X 버튼');
 			// isClickMap = 'select';
 			var selectCategory = $(this).data('cat1');
 			// 선택한 카테고리 체크 해제
@@ -1405,7 +1405,7 @@ input[type="checkbox"] {
 		
 		//  지도 검색 전체 해제 버튼 클릭
 		$(document).on('click', '.map_resetButton', function(){
-			console.log('리셋 버튼 클릭');
+			//console.log('리셋 버튼 클릭');
 		    isClickMap = 'reset';
 		    mapCat1 = [];
 		    mapCat1Text = [];
@@ -1418,7 +1418,7 @@ input[type="checkbox"] {
 		
 		// 지도 검색 n개씩 보기 버튼 클릭
 		$(".map_search_filter_btn").click(function(){
-			console.log('정렬 버튼');
+			//console.log('정렬 버튼');
 			isClickMap = 'select';
 			$(this).find("input[type='radio']").prop("checked", true);
 			mapAllChecked();
@@ -1606,8 +1606,8 @@ input[type="checkbox"] {
 					bolgguri_id: markerId
 				},
 				success: function(data){
-					console.log("AJAX mapMarkerSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
-					console.log('markerId : ', markerId);
+					//console.log("AJAX mapMarkerSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
+					//console.log('markerId : ', markerId);
 					var bolgguriHtml ='<div class="map_bolgguri_iconX_container">' +
 										'<img class="map_bolgguri_iconX" src="' + contextPath + '/resources/imgMw/iconX.png" width="25">' +
 									'</div>' +
@@ -1671,10 +1671,10 @@ input[type="checkbox"] {
 	   				pageSize: mapFilterNo
 	   			},
 	   			success: function(data){
-	   				console.log("AJAX mapSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
-	   				console.log('areaCode : ', mapAreaCode);
-	   				console.log('mapCat1 : ', mapCat1);
-	   				console.log('pageSize : ', mapFilterNo);
+	   				//console.log("AJAX mapSearch 요청 성공, 데이터:", data); // 반환된 데이터를 콘솔에 출력
+	   				//console.log('areaCode : ', mapAreaCode);
+	   				//console.log('mapCat1 : ', mapCat1);
+	   				//console.log('pageSize : ', mapFilterNo);
 	   				if(isClickMap == 'select'){
 						// 선택한 카테고리 출력
 						if(mapCat1 != null && mapCat1.length > 0){

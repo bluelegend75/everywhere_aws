@@ -268,7 +268,7 @@ table.icTable tr:nth-child(even) {
 	    }
 	}
 	function showFirstImage(element, firstimage) {
-		if (firstimage && firstimage != 'undefined') {
+		if (firstimage && firstimage != undefined) {
 
 			//console.log("firstimage", firstimage);
 			// 이미 존재하는 이미지가 있는지 확인
@@ -389,6 +389,11 @@ table.icTable tr:nth-child(even) {
 			});
 
 		} else {
+			
+			if(firstimage && firstimage != undefined){
+				firstimage =firstimage.replace('http:','https:');	
+			}
+			
 			var customOverlay = new kakao.maps.CustomOverlay({// 커스텀 오버레이를 생성
 				position : position,
 				content : '<a href="/detail_view?bolgguri_id=' + contentid + '" id="'+ contentid 
@@ -679,7 +684,7 @@ table.icTable tr:nth-child(even) {
 			위도(lat) <input type="text" id="endXlat" value="">
 			경도(lng) <input type="text" id="endYlng" value="">
 		</div>
-		검색 반경 <input type="text" id="radius" value="7"> km
+		검색 반경 <input type="text" id="radius" value="5"> km
 		<button id="showMap" title="선택된 출발지, 목적지 에 대한 경로와 IC주변 볼꺼리를 보여줍니다.">경로 보기</button>
 	</div>
 

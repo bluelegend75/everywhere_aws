@@ -253,7 +253,7 @@ input[type="checkbox"] {
 		}		
 	}
 	function showFirstImage(element, firstimage) {
-		if (firstimage && firstimage != 'undefined') {
+		if (firstimage && firstimage != undefined) {
 
 			//console.log("firstimage", firstimage);
 			// 이미 존재하는 이미지가 있는지 확인
@@ -291,6 +291,11 @@ input[type="checkbox"] {
 		marker.setMap(map);// 마커가 지도 위에 표시되도록 설정합니다		
 		markers.push(marker);// 생성된 마커를 배열에 추가합니다
 		//console.log("cat1:", cat1,contentid);
+		
+		if(firstimage && firstimage != undefined){
+			firstimage =firstimage.replace('http:','https:');	
+		}
+		
 		if (cat1 == '자연' || cat1 =='인문(문화/예술/역사)'|| cat1 =='레포츠') {
 			var iwContent = '<a href="/detail_view?bolgguri_id=' + contentid+'" id="' + contentid
 					+ '" onmouseover="showFirstImage(this, \'' + firstimage + '\')" '

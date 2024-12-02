@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import joeun.project.dto.MwBolgguriDto;
 import joeun.project.dto.MwBolgguriRegionDto;
+import joeun.project.dto.VistorCntDto;
 import joeun.project.dto.YhAccess_Facil_CodeDto;
 import joeun.project.dto.YhBolgguriDto;
 import joeun.project.dto.YhBolgguri_ReviewDto;
@@ -37,6 +38,7 @@ import joeun.project.dto.YhBolgguri_nearbyDto;
 import joeun.project.service.IMwBolgguriService;
 import joeun.project.service.IMwCRUDService;
 import joeun.project.service.IYhBolgguri_DetailService;
+import joeun.project.service.VisitorService;
 
 
 /**
@@ -50,6 +52,8 @@ public class YhController {
 	private IMwCRUDService mwService2;
 	@Autowired
 	private IYhBolgguri_DetailService yhService;
+	@Autowired
+    private VisitorService visitorService;
 
 	private static final Logger logger = LoggerFactory.getLogger(YhController.class);
 
@@ -83,6 +87,14 @@ public class YhController {
          model.addAttribute("mwBolgguriDtos", mwBolgguriDtos);
          model.addAttribute("mwBolgguriDtos2", mwBolgguriDtos2);
          model.addAttribute("mwBolgguriRegionDtos", mwBolgguriRegionDtos);
+         
+      // 방문자 카운트 증가
+         visitorService.incrementVisitorCount();
+      // 오늘의 방문자 수 조회
+         VistorCntDto totalCnt = visitorService.getVisitorCount();
+         System.out.println("totalCnt:"+totalCnt);         
+         model.addAttribute("indexCnt", totalCnt.getIndex_cnt());
+         model.addAttribute("nearBolgguriCnt", totalCnt.getNearbolgguri_cnt());
          
      return "/index";
   }
@@ -266,7 +278,7 @@ public class YhController {
 	        //근방5km좌표랑 이름
 	        model.addAttribute("nearbyLocations", nearbyLocations);
 	        
-	        mwService2.reviewInsert(bolgguri_id);	//리뷰 하나씩 자동생성
+	        //mwService2.reviewInsert(bolgguri_id);	//리뷰 하나씩 자동생성
 	    	mwService2.view_countUp(bolgguri_id);	//조회수 증가
 	    }
 	    else {

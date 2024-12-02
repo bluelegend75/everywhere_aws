@@ -7,6 +7,7 @@
 <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주변 볼꺼리</title>
+<meta name="description" content="●여행 정보 사이트 방방곡곡 ●목적지를 몰라도 갈곳을 쉽게 찾고, 여형계획을 세울 수 있는 여행추천 여행지도 방방곡곡 ●어디 갈까? 고민 끝">
 <link rel="stylesheet" href="/resources/dc/css/nearBolgguri.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -274,7 +275,7 @@ input[type="checkbox"] {
 		}		
 	}
 	function showFirstImage(element, firstimage) {
-		if (firstimage && firstimage != 'undefined') {
+		if (firstimage && firstimage != undefined) {
 
 			//console.log("firstimage", firstimage);
 			// 이미 존재하는 이미지가 있는지 확인
@@ -312,6 +313,11 @@ input[type="checkbox"] {
 		marker.setMap(map);// 마커가 지도 위에 표시되도록 설정합니다		
 		markers.push(marker);// 생성된 마커를 배열에 추가합니다
 		//console.log("cat1:", cat1,contentid);
+		
+		if(firstimage && firstimage != undefined){
+			firstimage =firstimage.replace('http:','https:');	
+		}
+		
 		if (cat1 == '자연') {
 			/* var iwContent = '<a href="/" id="' + contentid + '" onmouseover="showFirstImage(this,"'+firstimage +'")>'
 					+'<span class="info-cat1">'					

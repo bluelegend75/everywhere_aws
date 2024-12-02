@@ -45,4 +45,14 @@
     <filter-name>encodingFilter</filter-name> 
     <url-pattern>/*</url-pattern> 
  </filter-mapping> 
+ <!-- 리디렉션을 처리할 필터 설정 -->
+<!--     <filter>
+        <filter-name>RedirectFilter</filter-name>
+        <filter-class>joeun.project.RedirectFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RedirectFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping> -->
 </web-app>

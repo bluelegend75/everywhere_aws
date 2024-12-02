@@ -34,6 +34,7 @@ import joeun.project.dto.GpsKeyword;
 import joeun.project.dto.GpsPoint;
 import joeun.project.dto.Location;
 import joeun.project.service.LocationService;
+import joeun.project.service.VisitorService;
 
 @Controller
 public class LocationController {
@@ -41,6 +42,8 @@ public class LocationController {
 
 	@Autowired
 	private LocationService locationService;
+	@Autowired
+    private VisitorService visitorService;
 
 	@GetMapping("/locations")
 	public String getNearbyLocations(Model model) {
@@ -316,6 +319,8 @@ public class LocationController {
 	
 	@RequestMapping("/nearBolgguriApp")
 	public String nearBolgguriApp(Model model) {
+	      // 방문자 카운트 증가
+        visitorService.incrementNearBolgguriCnt();
 //		List<API_cat_code> catList = locationService.selectBolgguriCat();
 //		logger.debug("catList : "+catList);
 //		model.addAttribute("catList", catList);

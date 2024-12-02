@@ -89,7 +89,7 @@
 			
 			.content_zone1 .slide_group {
 				display: flex;
-				transition: transform 1s ease;
+				transition: transform 0.5s ease;
 				transform: translateX(130px);
 			}
 			
@@ -542,24 +542,23 @@
 			/* 모달 전체 화면 */
 			.modal {
 				display: none; 
-		    position: fixed; 
-		    z-index: 1; 
-		    padding-top: 70px; 
-		    left: 0;
-		    top: 0;
-		    width: 100%; 
-		    height: 100%; 
-		    overflow: auto;
-		    background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
+			    position: fixed; 
+			    z-index: 1000; 
+			    padding-top: 50px; 
+			    left: 0;
+			    top: 0;
+			    width: 100%; 
+			    height: 100%; 
+			    background-color: rgba(0, 0, 0, 0.8); /* 어두운 배경 */
 			}
 				
 			/* 모달 닫기 버튼 */
 			.modal .close {
 			    position: absolute;
-			    top: 50px;
-			    right: 5%;
+			    top: 10px;
+			    right: 10%;
 			    color: white;
-			    font-size: 60px;
+			    font-size: 40px;
 			    font-weight: bold;
 			    cursor: pointer;
 			}
@@ -578,35 +577,6 @@
 			.modal-content {
 			    animation-name: zoom;
 			    animation-duration: 0.6s;
-			}
-			/* 화살표 네비게이션 */
-			.modal-navigation {
-			    position: absolute;
-			    top: 20%;
-			    width: 100%;
-			    display: flex;
-			    justify-content: space-between;
-			    transform: translateY(-50%);
-			}
-			.nav-btn {
-			    font-size: 100px;
-			    color: white;
-			    cursor: pointer;
-			    user-select: none;
-			    z-index: 2; /* 화살표가 이미지 위에 표시되도록 */
-			    position: absolute; /* 절대 위치 설정 */
-			    top: 50%; /* 화면 중간에 배치 */
-			    transform: translateY(-50%); /* 세로 방향으로 정확히 중앙 정렬 */
-			}
-			.nav-btn:hover {
-			    color: #f1f1f1;
-			}
-			#prevImage {
-    			left: 7%; /* 왼쪽에서 20px 떨어지도록 설정 */
-			}
-			
-			#nextImage {
-			    right: 7%; /* 오른쪽에서 20px 떨어지도록 설정 */
 			}
 				
 			@keyframes zoom {
@@ -645,9 +615,130 @@
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 			<script>
+
+			document.addEventListener("DOMContentLoaded", function() {
+				let slideIndex1 = 0; // 초기 인덱스를 0으로 설정
+				let autoSlideInterval1; // 자동 슬라이드용 인터벌 변수
+				let slideWidth, startPoint, endPoint; // 슬라이드 너비를 전역 변수로 선언
+				
+			    const slideGroup1 = document.querySelector('.content_zone1 .slide_group');
+			    const slides = document.querySelectorAll('.content_zone1 .slide_item');
+
+			    function updateSlideWidth() {			        
+			        slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진을 동적으로 계산
+			    }			    
+			    
+			    function showSlides1() {
+				    //let slides = document.querySelectorAll('.content_zone1 .slide_item');
+				    //let slideGroup = document.querySelector('.content_zone1 .slide_group');
+				    slideIndex1 = (slideIndex1 + 1) % slides.length;
+				    //slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진
+				    let initialOffset = slideGroup1.offsetWidth / 2 - slideWidth / 2;//130; // 초기 위치를 설정
+				    slideGroup1.style.transition = 'transform 0.5s ease';
+				    slideGroup1.style.transform = 'translateX(' + (initialOffset + (-slideWidth * slideIndex1)) + 'px)';
+					}
+			    
+			    function startAutoSlide() {
+			        clearInterval(autoSlideInterval1);
+			        autoSlideInterval1 = setInterval(showSlides1, 2000);
+			    }
+
+			    function stopAutoSlide() {
+			        clearInterval(autoSlideInterval1);
+			    }
+
+
+			    updateSlideWidth();
+			    startAutoSlide();
+
+			    window.addEventListener('resize', () => {
+			        updateSlideWidth();
+			        showSlides1();
+			    });
+
+			    // PC 클릭 이벤트 (드래그)
+			    slideGroup1.addEventListener('mousedown', (e) => {
+			        e.preventDefault(); 
+			        clearInterval(autoSlideInterval1); 
+			        startPoint = e.pageX;
+			        slideGroup1.style.transition = 'none'; 
+
+			        function onMouseMove(event) {
+			            let currentPoint = event.pageX;
+			            let diff = currentPoint - startPoint;
+			            //let newIndex = Math.round((-(diff + 550) / slideWidth) + slideIndex1);
+			            let newIndex = Math.round((startPoint - currentPoint) / slideWidth + slideIndex1);
+
+			            slideGroup1.style.transform = 'translateX(' + (-slideWidth * newIndex + 550) + 'px)';
+			        }
+
+			        function onMouseUp(event) {
+			            endPoint = event.pageX;
+			            slideGroup1.style.transition = 'transform 0.5s ease'; // 드래그 끝나면 트랜지션 효과 복원
+
+			            if (startPoint < endPoint) {
+			                slideIndex1 = Math.max(slideIndex1 - 1, 0);
+			            } else if (startPoint > endPoint) {
+			                slideIndex1 = Math.min(slideIndex1 + 1, slides.length - 1);
+			            }
+
+			            slideGroup1.style.transform = 'translateX(' + (-550 + (-slideWidth * slideIndex1)) + 'px)';
+			            autoSlideInterval1 = setInterval(showSlides1, 2000); // 드래그 후 자동 슬라이드 재시작
+
+			            document.removeEventListener('mousemove', onMouseMove);
+			            document.removeEventListener('mouseup', onMouseUp);
+			            startPoint = 0; // 드래그 종료 후 시작 지점 초기화
+			        }
+
+			        document.addEventListener('mousemove', onMouseMove);
+			        document.addEventListener('mouseup', onMouseUp);
+			    });
+
+			    // 모바일 터치 이벤트 (스와이프)
+			    /* slideGroup1.addEventListener('touchstart', (e) => {
+			        //e.preventDefault(); // 기본 동작 방지
+			        if (Math.abs(endPoint - startPoint) > threshold) {
+			            e.preventDefault();
+			        }
+			        clearInterval(autoSlideInterval1);
+			        startPoint = e.touches[0].pageX;
+			        slideGroup1.style.transition = 'none';
+
+			        function onTouchMove(event) {
+			            let currentPoint = event.touches[0].pageX;
+			            let diff = currentPoint - startPoint;
+			            //let newIndex = Math.round((-(diff + 550) / slideWidth) + slideIndex1);
+			            let newIndex = Math.round((startPoint - currentPoint) / slideWidth + slideIndex1);
+
+			            slideGroup1.style.transform = 'translateX(' + (-slideWidth * newIndex + 550) + 'px)';
+			        }
+
+			        function onTouchEnd(event) {
+			            endPoint = event.changedTouches[0].pageX;
+			            slideGroup1.style.transition = 'transform 0.5s ease';
+
+			            if (startPoint < endPoint) {
+			                slideIndex1 = Math.max(slideIndex1 - 1, 0);
+			            } else if (startPoint > endPoint) {
+			                slideIndex1 = Math.min(slideIndex1 + 1, slides.length - 1);
+			            }
+
+			            slideGroup1.style.transform = 'translateX(' + (-550 + (-slideWidth * slideIndex1)) + 'px)';
+			            autoSlideInterval1 = setInterval(showSlides1, 3000); // 드래그 후 자동 슬라이드 재시작
+
+			            document.removeEventListener('touchmove', onTouchMove);
+			            document.removeEventListener('touchend', onTouchEnd);
+			            startPoint = 0; // 스와이프 종료 후 시작 지점 초기화
+			        }
+
+			        document.addEventListener('touchmove', onTouchMove);
+			        document.addEventListener('touchend', onTouchEnd);
+			    }); */
+			});
+
+			
 				
 				$(document).ready(function() {
-				    
 				    // 탭 클릭 시 해당 콘텐츠로 스크롤
 				    $('.tab').on('click', function() {
 				        var target = $(this).data('target');
@@ -1188,142 +1279,8 @@
 				</div>
 			</div>
 		</section>
-		<script>
-			let slideIndex1 = 0; // 초기 인덱스를 0으로 설정
-	    let autoSlideInterval1; // 자동 슬라이드용 인터벌 변수
-	    let slideWidth, startPoint, endPoint; // 슬라이드 너비를 전역 변수로 선언
-
-	    const slideGroup1 = document.querySelector('.content_zone1 .slide_group');
-	    //console.log('slideGroup1.offsetWidth',slideGroup1.offsetWidth);
-	    const slides = document.querySelectorAll('.content_zone1 .slide_item');
-
-	    // 모달 관련 요소
-	    const modal = document.getElementById("imageModal");
-	    const modalImage = document.getElementById("modalImage");
-	    const prevImageBtn = document.getElementById("prevImage");
-	    const nextImageBtn = document.getElementById("nextImage");
-
-	    let currentImageIndex = 0; // 현재 확대된 이미지 인덱스
-
-	    function updateSlideWidth() {
-	        slideWidth = slides[0].offsetWidth + 60; // 슬라이드의 너비와 마진을 동적으로 계산
-	        //console.log('slideWidth',slideWidth);
-	    }
-			// 모든 이미지가 로드되었을 때 슬라이드 시작
-	    function startSlidesAfterLoad() {
-	        const images = document.querySelectorAll('.content_zone1 .slide_item img');
-	        let imagesLoaded = 0;
-
-	        // 이미지가 로드될 때마다 카운트를 증가시킴
-	        images.forEach(image => {
-	            image.onload = function() {
-	                imagesLoaded++;
-	                // 모든 이미지가 로드되면 슬라이드 시작
-	                if (imagesLoaded === images.length) {
-	                    startAutoSlide();
-	                }
-	            }
-	        });
-	    }
-	    function showSlides1() {
-	        slideIndex1 = (slideIndex1 + 1) % slides.length;
-	        //console.log('slides.length',slides.length);
-	        slideWidth = slides[0].offsetWidth + 60;
-	        
-	        let initialOffset = slideGroup1.offsetWidth / 2 - slideWidth / 2; //130  초기 위치를 설정
-	        //console.log('slideGroup1.offsetWidth',slideGroup1.offsetWidth);
-	        //console.log('slideWidth',slideWidth);
-	        //console.log('initialOffset',initialOffset);
-	        //console.log('-------------------------');
-	        slideGroup1.style.transition = 'transform 1s ease';
-	        slideGroup1.style.transform = 'translateX(' + (initialOffset + (-slideWidth * slideIndex1)) + 'px)';
-	        //console.log('slideGroup1.style.transform',slideGroup1.style.transform);
-	    }
-
-	    function startAutoSlide() {
-	        clearInterval(autoSlideInterval1);
-	        autoSlideInterval1 = setInterval(showSlides1, 2000);
-	    }
-
-	    function stopAutoSlide() {
-	        clearInterval(autoSlideInterval1);
-	    }
-
-	    // 슬라이드 이미지 클릭 시 모달 열기
-	    function openModal(imageSrc, index) {
-	        modal.style.display = "block";
-	        modalImage.src = imageSrc;
-	        currentImageIndex = index; // 클릭한 이미지의 인덱스를 저장
-	    }
-	    // 모달 이미지 클릭 시 모달 닫기
-	    modalImage.addEventListener('click', function() {
-	        modal.style.display = "none";
-	    });
-
-	    // 모달 닫기
-	    if (modal) {
-	        modal.querySelector('.close').addEventListener('click', function() {
-	            modal.style.display = "none";
-	        });
-	    }
-
-	    // 이전 이미지 보기
-	    if (prevImageBtn) {
-	        prevImageBtn.addEventListener('click', function() {
-	            currentImageIndex = (currentImageIndex - 1 + slides.length) % slides.length; // 인덱스를 이전으로
-	            const imageSrc = slides[currentImageIndex].querySelector('img').src; // 해당 이미지 src 가져오기
-	            modalImage.src = imageSrc; // 모달 이미지 업데이트
-	        });
-	    }
-
-	    // 다음 이미지 보기
-	    if (nextImageBtn) {
-	        nextImageBtn.addEventListener('click', function() {
-	            currentImageIndex = (currentImageIndex + 1) % slides.length; // 인덱스를 다음으로
-	            const imageSrc = slides[currentImageIndex].querySelector('img').src; // 해당 이미지 src 가져오기
-	            modalImage.src = imageSrc; // 모달 이미지 업데이트
-	        });
-	    }
-
-	    // 터치 이벤트 (모바일에서 스와이프 지원)
-	    let touchStartX = 0;
-	    if (modal) {
-	        modal.addEventListener('touchstart', function(e) {
-	            touchStartX = e.changedTouches[0].pageX;
-	        });
-
-	        modal.addEventListener('touchend', function(e) {
-	            let touchEndX = e.changedTouches[0].pageX;
-	            if (touchEndX < touchStartX) {
-	                nextImageBtn.click(); // 왼쪽으로 스와이프하면 다음 이미지
-	            } else if (touchEndX > touchStartX) {
-	                prevImageBtn.click(); // 오른쪽으로 스와이프하면 이전 이미지
-	            }
-	        });
-	    }
-
-	    // 슬라이드 이미지 클릭 이벤트를 jQuery로 처리
-	    /* $('.slide_item a').on('click', function(e) {
-	        e.preventDefault();
-	        const imageSrc = $(this).find('img').attr('src');
-	        const index = $(this).closest('.slide_item').index();
-	        openModal(imageSrc, index);
-	    }); */
-
-	    updateSlideWidth();
-	    //startAutoSlide();
-	 		// 이미지를 모두 로딩한 후에 슬라이드 시작
-	    startSlidesAfterLoad();
-
-	    window.addEventListener('resize', () => {
-	        updateSlideWidth();
-	        showSlides1();
-	    });
-			
-		</script>
-
 		<!-- 리뷰 페이지넘버링 화면고정 -->
-		<!-- <script>
+		<script>
 		    // 페이지 이동 전 스크롤 위치 저장
 		    document.querySelectorAll('#pagination a').forEach(function(link) {
 		        link.addEventListener('click', function() {
@@ -1359,7 +1316,7 @@
 		    closeBtn.onclick = function() {
 		        modal.style.display = "none";  // 모달 창 숨김
 		    }
-		</script> -->
+		</script>
 	
 		<script>
 			// 지도 스크립트
